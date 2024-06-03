@@ -4,8 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68ec7b45-9e15-4fbf-9755-5d928b7d3dbe" name="변경" comment="init">
-      <change afterPath="$PROJECT_DIR$/src/util/DB_Close.java" afterDir="false" />
+    <list default="true" id="68ec7b45-9e15-4fbf-9755-5d928b7d3dbe" name="변경" comment="Feat: DB_Connect, DB_Close">
+      <change afterPath="$PROJECT_DIR$/src/view/MovieFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dao/CustomerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/CustomerDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/DB_Close.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/DB_Close.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/DB_Connect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/DB_Connect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/App.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +111,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1717388929024</updated>
-      <workItem from="1717388930928" duration="7514000" />
+      <workItem from="1717388930928" duration="15926000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -115,7 +121,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717397603144</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Feat: DB_Connect, DB_Close">
+      <option name="closed" value="true" />
+      <created>1717398398366</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1717398398366</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -123,6 +137,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init" />
-    <option name="LAST_COMMIT_MESSAGE" value="init" />
+    <MESSAGE value="Feat: DB_Connect, DB_Close" />
+    <option name="LAST_COMMIT_MESSAGE" value="Feat: DB_Connect, DB_Close" />
   </component>
 </project>

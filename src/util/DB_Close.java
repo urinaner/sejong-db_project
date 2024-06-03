@@ -4,8 +4,8 @@ import java.sql.*;
 public class DB_Close {
     public static Connection getConnection() {
         try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-            return DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "mytest", "mytest");
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            return DriverManager.getConnection("jdbc:mysql://localhost:3306/db1?serverTimezone=UTC","root","wkddudwo1!");
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,81 +1,70 @@
 package view;
 
+import dao.CustomerDAO;
+
 import javax.swing.*;
 import java.awt.*;
-import java.io.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class App {
     private JPanel jPanel;
-    private JTextField usernameField;
-    private JPasswordField passwordField;
+    private JTextField nameField;
+    private JTextField phoneNumberField;
     private JButton loginButton;
-    private JButton registerButton;
+
+    private CustomerDAO customerDao = CustomerDAO.getInstance();
 
     public App() {
         jPanel = new JPanel();
-        jPanel.setLayout(new GridBagLayout());
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.insets = new Insets(5, 5, 5, 5);
+        jPanel.setLayout(new GridLayout(3, 2, 5, 5));
 
-        JLabel usernameLabel = new JLabel("Username:");
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        jPanel.add(usernameLabel, constraints);
+        JLabel nameLabel = new JLabel("Name:");
+        jPanel.add(nameLabel);
 
-        usernameField = new JTextField(20);
-        constraints.gridx = 1;
-        constraints.gridy = 0;
-        jPanel.add(usernameField, constraints);
+        nameField = new JTextField();
+        jPanel.add(nameField);
 
-        JLabel passwordLabel = new JLabel("Password:");
-        constraints.gridx = 0;
-        constraints.gridy = 1;
-        jPanel.add(passwordLabel, constraints);
+        JLabel phoneNumberLabel = new JLabel("Phone Number:");
+        jPanel.add(phoneNumberLabel);
 
-        passwordField = new JPasswordField(20);
-        constraints.gridx = 1;
-        constraints.gridy = 1;
-        jPanel.add(passwordField, constraints);
+        phoneNumberField = new JTextField();
+        jPanel.add(phoneNumberField);
 
         loginButton = new JButton("Login");
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // 로그인 버튼 클릭 시 수행할 작업
+                String name = nameField.getText();
+                String phoneNumber = phoneNumberField.getText();
 
-                String username = usernameField.getText();
-                String password = new String(passwordField.getPassword());
-                // 로그인 처리 로직 작성
-                // ...
+                int result = customerDao.login(name, phoneNumber);
+                switch (result) {
+                    case 0:
+                        JOptionPane.showMessageDialog(null, "로그인 성공");
+                        break;
+                    case -1:
+                        JOptionPane.showMessageDialog(null, "전화번호 오류");
+                        break;
+                    case -2:
+                        JOptionPane.showMessageDialog(null, "등록되지 않은 이름");
+                        break;
+                    case -3:
+                        JOptionPane.showMessageDialog(null, "데이터베이스 오류");
+                        break;
+                }
+                if (result == 0) {
+                    // 로그인 성공 시 새로운 창 띄우기
+                    new MovieFrame();
+                }
+
             }
         });
-        constraints.gridx = 0;
-        constraints.gridy = 2;
-        constraints.gridwidth = 2;
-        constraints.anchor = GridBagConstraints.CENTER;
-        jPanel.add(loginButton, constraints);
-
-        registerButton = new JButton("Register");
-        registerButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("hi");
-                // 회원가입 버튼 클릭 시 수행할 작업
-                // 회원가입 화면으로 이동하거나 회원가입 처리 로직 작성
-                // ...
-            }
-        });
-        constraints.gridx = 0;
-        constraints.gridy = 3;
-        constraints.gridwidth = 2;
-        constraints.anchor = GridBagConstraints.CENTER;
-        jPanel.add(registerButton, constraints);
+        jPanel.add(loginButton);
     }
 
     public static void run() {
-        JFrame frame = new JFrame("Login/Register");
+        JFrame frame = new JFrame("Login");
         frame.setContentPane(new App().jPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
