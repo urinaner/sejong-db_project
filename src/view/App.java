@@ -54,7 +54,7 @@ public class App {
                         break;
                 }
                 if (result == 0) {
-                    // 로그인 성공 시 새로운 창 띄우기
+                    // 로그인 성공 시 영화 목록 창 띄우기
                     new MovieFrame();
                 }
 
