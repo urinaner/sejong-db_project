@@ -1,13 +1,13 @@
 package view;
 
 import dao.MovieDAO;
-import dao.TheaterDAO;
 import entity.Movie;
-import entity.Theater;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -16,6 +16,7 @@ public class MovieFrame extends JFrame {
     private JTable table;
     private DefaultTableModel model;
     private int selectedRow = -1;
+    private int selectedMovieId;
 
     public MovieFrame() {
         setTitle("Movie List");
@@ -23,7 +24,7 @@ public class MovieFrame extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        // Create a panel to hold the table
+        // Create a panel to hold the table and button
         JPanel panel = new JPanel(new BorderLayout());
         add(panel);
 
@@ -38,13 +39,24 @@ public class MovieFrame extends JFrame {
                 int row = table.rowAtPoint(e.getPoint());
                 if (row >= 0 && row != selectedRow) {
                     selectedRow = row;
-                    int movieId = Integer.parseInt(model.getValueAt(row, 0).toString());
-                    openTheaterFrame(movieId);
+                    selectedMovieId = Integer.parseInt(model.getValueAt(row, 0).toString());
                 }
             }
         });
         JScrollPane scrollPane = new JScrollPane(table);
         panel.add(scrollPane, BorderLayout.CENTER);
+
+        // Create a button to select the movie
+        JButton selectButton = new JButton("Select");
+        selectButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (selectedRow >= 0) {
+                    openTheaterFrame(selectedMovieId);
+                }
+            }
+        });
+        panel.add(selectButton, BorderLayout.SOUTH);
 
         // Populate table with movie data
         populateTable();
@@ -78,41 +90,7 @@ public class MovieFrame extends JFrame {
 
     // Method to open the theater frame for the selected movie
     private void openTheaterFrame(int movieId) {
-        // Get theaters showing the selected movie from the database using TheaterDAO
-        TheaterDAO theaterDAO = TheaterDAO.getInstance();
-        List<Theater> theaters = theaterDAO.getTheatersByMovieId(movieId);
-
-        // Create a new frame to display the theaters
-        JFrame theaterFrame = new JFrame("Theaters");
-        theaterFrame.setSize(400, 300);
-        theaterFrame.setLocationRelativeTo(null);
-        theaterFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-        // Create a panel to hold the theater list
-        JPanel panel = new JPanel(new BorderLayout());
-        theaterFrame.add(panel);
-
-        // Create a table model with column names for theaters
-        String[] columnNames = {"Theater ID", "Seat Count", "Available", "Seat Rows", "Seat Columns"};
-        DefaultTableModel theaterModel = new DefaultTableModel(columnNames, 0);
-
-        // Add each theater to the table model
-        for (Theater theater : theaters) {
-            Object[] rowData = {
-                    theater.getTheaterId(),
-                    theater.getSeatCount(),
-                    theater.isAvailable(),
-                    theater.getSeatRows(),
-                    theater.getSeatColumns()
-            };
-            theaterModel.addRow(rowData);
-        }
-
-        // Create a JTable with the theater table model
-        JTable theaterTable = new JTable(theaterModel);
-        JScrollPane scrollPane = new JScrollPane(theaterTable);
-        panel.add(scrollPane, BorderLayout.CENTER);
-
+        TheaterFrame theaterFrame = new TheaterFrame(movieId);
         theaterFrame.setVisible(true);
     }
 
