@@ -1,6 +1,6 @@
 package dao;
 
-import entity.Theater;
+import dto.Theater;
 import util.DB_Connect;
 
 import java.sql.Connection;
@@ -63,8 +63,8 @@ public class TheaterDAO {
                     theater.setTheaterId(rs.getInt("theater_id"));
                     theater.setSeatCount(rs.getInt("seat_count"));
                     theater.setAvailable(rs.getBoolean("is_available"));
-                    theater.setSeatRows(rs.getInt("seat_rows"));
-                    theater.setSeatColumns(rs.getInt("seat_columns"));
+                    theater.setSeatRows(rs.getInt("seat_row"));
+                    theater.setSeatColumns(rs.getInt("seat_column"));
                     theaters.add(theater);
                 }
             }

@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import dao.TheaterDAO;
-import entity.Theater;
+import dto.Theater;
 
 public class TheaterFrame extends JFrame {
     private JTable theaterTable;

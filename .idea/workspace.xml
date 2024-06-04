@@ -4,10 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68ec7b45-9e15-4fbf-9755-5d928b7d3dbe" name="변경" comment="Feat: MovieFrame detail, TheaterDAO">
-      <change afterPath="$PROJECT_DIR$/src/view/TheaterFrame.java" afterDir="false" />
+    <list default="true" id="68ec7b45-9e15-4fbf-9755-5d928b7d3dbe" name="변경" comment="Feat: TheaterFrame create">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dao/CustomerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/CustomerDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dao/MovieDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/MovieDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dao/TheaterDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/TheaterDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dto/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/Movie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dto/Movie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/Reservation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dto/Reservation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/Schedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dto/Schedule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/Seat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dto/Seat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/Theater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dto/Theater.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/Ticket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dto/Ticket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/Init.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/Init.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/MovieFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MovieFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/TheaterFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/TheaterFrame.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,6 +106,9 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
+        <option value="jdk-15.0.10-azul-15.0.10-4caba194b151-3b0166d7" />
+        <option value="jdk-21.0.1-openjdk-21.0.1-4caba194b151-9b16c6e2" />
+        <option value="jdk-21.0.2-corretto-21.0.2-4caba194b151-221dcadf" />
         <option value="jdk-21.0.2-graalvm-jdk-21.0.2-4caba194b151-b5c216e9" />
       </set>
     </attachedChunks>
@@ -107,7 +121,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1717388929024</updated>
-      <workItem from="1717388930928" duration="27627000" />
+      <workItem from="1717388930928" duration="32162000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -149,7 +163,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717417565167</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Feat: TheaterFrame create">
+      <option name="closed" value="true" />
+      <created>1717467134920</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1717467134920</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -161,6 +183,7 @@
     <MESSAGE value="Feat: login(name, phone 기준 조회), MovieFrame" />
     <MESSAGE value="Feat: MovieFrame getMovies, jdbc init code" />
     <MESSAGE value="Feat: MovieFrame detail, TheaterDAO" />
-    <option name="LAST_COMMIT_MESSAGE" value="Feat: MovieFrame detail, TheaterDAO" />
+    <MESSAGE value="Feat: TheaterFrame create" />
+    <option name="LAST_COMMIT_MESSAGE" value="Feat: TheaterFrame create" />
   </component>
 </project>

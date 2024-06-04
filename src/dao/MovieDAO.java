@@ -1,11 +1,10 @@
 package dao;
 
-import entity.Movie;
+import dto.Movie;
 import util.DB_Close;
 import util.DB_Connect;
 
 import java.sql.*;
-import java.io.*;
 import java.util.*;
 
 public class MovieDAO {

@@ -1,4 +1,4 @@
-package entity;
+package dto;
 
 public class Schedule {
     private int scheduleId;

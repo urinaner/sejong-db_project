@@ -1,7 +1,7 @@
 package view;
 
 import dao.MovieDAO;
-import entity.Movie;
+import dto.Movie;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

@@ -33,7 +33,7 @@ public class CustomerDAO {
     // 성공 : 0 실패 : 전화번호 오류 : -1, 등록되지 않은 이름 : -2 | 데이터베이스 오류 : -3;
     public int login(String name, String phoneNumber) {
         connect();
-        String sql = "SELECT * FROM customer WHERE customer_name = ?";
+        String sql = "SELECT * FROM customers WHERE customer_name = ?";
 
         try {
             pstmt = con.prepareStatement(sql);
