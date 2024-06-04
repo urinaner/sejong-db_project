@@ -52,7 +52,7 @@ public class MovieFrame extends JFrame {
             //@override
         	public void actionPerformed(ActionEvent e) {
                 if (selectedRow >= 0) {
-                    openTheaterFrame(selectedMovieId);
+                    openScheduleFrame(selectedMovieId);
                 }
             }
         });
@@ -88,10 +88,10 @@ public class MovieFrame extends JFrame {
         }
     }
 
-    // Method to open the theater frame for the selected movie
-    private void openTheaterFrame(int movieId) {
-        TheaterFrame theaterFrame = new TheaterFrame(movieId);
-        theaterFrame.setVisible(true);
+    // Method to open the schedule frame for the selected movie
+    private void openScheduleFrame(int movieId) {
+        ScheduleFrame scheduleFrame = new ScheduleFrame(movieId);
+        scheduleFrame.setVisible(true);
     }
 
     public static void main(String[] args) {

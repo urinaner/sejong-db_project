@@ -1,7 +1,7 @@
 package view;
 
 import dao.CustomerDAO;
-import dao.managerDAOVIEW;
+import view.ManagerFrame;
 
 import java.awt.event.*;
 import javax.swing.*;
@@ -94,7 +94,7 @@ public class App {
 
                 if (id.equals("root") && pw.equals("1234")) {
                     JOptionPane.showMessageDialog(null, "Login successful");
-                    new managerDAOVIEW().setVisible(true);
+                    new ManagerFrame().setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(null, "Login failed");
                 }
