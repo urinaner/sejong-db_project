@@ -33,7 +33,7 @@ public class TheaterFrame extends JFrame {
         // Create a button to select the theater
         JButton selectButton = new JButton("Select");
         selectButton.addActionListener(new ActionListener() {
-            @Override
+            //@Override
             public void actionPerformed(ActionEvent e) {
                 int selectedRow = theaterTable.getSelectedRow();
                 if (selectedRow >= 0) {

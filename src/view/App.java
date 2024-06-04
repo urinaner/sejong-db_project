@@ -1,11 +1,11 @@
 package view;
 
 import dao.CustomerDAO;
+import dao.managerDAOVIEW;
 
+import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class App {
     private JPanel jPanel;
@@ -16,6 +16,18 @@ public class App {
     private CustomerDAO customerDao = CustomerDAO.getInstance();
 
     public App() {
+        initializeUserLogin();
+    }
+
+    public App(boolean isManager) {
+        if (isManager) {
+            initializeManagerLogin();
+        } else {
+            initializeUserLogin();
+        }
+    }
+
+    private void initializeUserLogin() {
         jPanel = new JPanel();
         jPanel.setLayout(new GridLayout(3, 2, 5, 5));
 
@@ -33,7 +45,6 @@ public class App {
 
         loginButton = new JButton("Login");
         loginButton.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 String name = nameField.getText();
                 String phoneNumber = phoneNumberField.getText();
@@ -41,42 +52,104 @@ public class App {
                 int result = customerDao.login(name, phoneNumber);
                 switch (result) {
                     case 0:
-                        JOptionPane.showMessageDialog(null, "로그인 성공");
+                        JOptionPane.showMessageDialog(null, "Login successful");
+                        new MovieFrame();
                         break;
                     case -1:
-                        JOptionPane.showMessageDialog(null, "전화번호 오류");
+                        JOptionPane.showMessageDialog(null, "Invalid phone number");
                         break;
                     case -2:
-                        JOptionPane.showMessageDialog(null, "등록되지 않은 이름");
+                        JOptionPane.showMessageDialog(null, "Unregistered name");
                         break;
                     case -3:
-                        JOptionPane.showMessageDialog(null, "데이터베이스 오류");
+                        JOptionPane.showMessageDialog(null, "Database error");
                         break;
                 }
-                if (result == 0) {
-                    // 로그인 성공 시 영화 목록 창 띄우기
-                    new MovieFrame();
-                }
+            }
+        });
+        jPanel.add(loginButton);
+    }
 
+    private void initializeManagerLogin() {
+        jPanel = new JPanel();
+        jPanel.setLayout(new GridLayout(3, 2, 5, 5));
+
+        JLabel idLabel = new JLabel("ID:");
+        jPanel.add(idLabel);
+
+        nameField = new JTextField();
+        jPanel.add(nameField);
+
+        JLabel pwLabel = new JLabel("PW:");
+        jPanel.add(pwLabel);
+
+        phoneNumberField = new JTextField();
+        jPanel.add(phoneNumberField);
+
+        loginButton = new JButton("Login");
+        loginButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String id = nameField.getText();
+                String pw = phoneNumberField.getText();
+
+                if (id.equals("root") && pw.equals("1234")) {
+                    JOptionPane.showMessageDialog(null, "Login successful");
+                    new managerDAOVIEW().setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Login failed");
+                }
             }
         });
         jPanel.add(loginButton);
     }
 
     public static void run() {
-        JFrame frame = new JFrame("Login");
-        frame.setContentPane(new App().jPanel);
+        final JFrame frame = new JFrame("Movie Reservation");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
+
+        JPanel panel = new JPanel();
+        JLabel titleLabel = new JLabel("Choose your account");
+
+        JButton startButton1 = new JButton("Manager");
+        startButton1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        new App(true).setVisible(true);
+                    }
+                });
+            }
+        });
+
+        JButton startButton2 = new JButton("User");
+        startButton2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        new App(false).setVisible(true);
+                    }
+                });
+            }
+        });
+
+        panel.add(titleLabel);
+        panel.add(startButton1);
+        panel.add(startButton2);
+
+        frame.getContentPane().add(panel);
+        frame.setSize(300, 100);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                App.run();
-            }
-        });
+    public void setVisible(boolean visible) {
+        JFrame frame = new JFrame("Login");
+        frame.setContentPane(jPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(visible);
     }
 }

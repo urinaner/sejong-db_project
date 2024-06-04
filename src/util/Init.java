@@ -34,12 +34,14 @@ public class Init {
         Statement stmt = con.createStatement();
 
         // 기존 테이블 삭제
+        stmt.executeUpdate("SET FOREIGN_KEY_CHECKS=0");
         stmt.execute("DROP TABLE IF EXISTS customers");
         stmt.execute("DROP TABLE IF EXISTS tickets");
         stmt.execute("DROP TABLE IF EXISTS seats");
         stmt.execute("DROP TABLE IF EXISTS schedules");
         stmt.execute("DROP TABLE IF EXISTS movies");
         stmt.execute("DROP TABLE IF EXISTS theaters");
+        stmt.executeUpdate("SET FOREIGN_KEY_CHECKS=1");
 
         // 새로운 테이블 생성
         stmt.execute("CREATE TABLE IF NOT EXISTS theaters (" +

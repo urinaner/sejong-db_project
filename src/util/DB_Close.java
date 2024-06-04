@@ -5,7 +5,7 @@ public class DB_Close {
     public static Connection getConnection() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            return DriverManager.getConnection("jdbc:mysql://localhost:3306/db1?serverTimezone=UTC","root","wkddudwo1!");
+            return DriverManager.getConnection("jdbc:mysql://localhost:3306/db1?serverTimezone=UTC","root","1234");
         } catch (Exception e) {
             e.printStackTrace();
         }
