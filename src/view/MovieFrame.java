@@ -34,7 +34,7 @@ public class MovieFrame extends JFrame {
         table = new JTable(model);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.addMouseListener(new MouseAdapter() {
-            @Override
+            //@Override
             public void mousePressed(MouseEvent e) {
                 int row = table.rowAtPoint(e.getPoint());
                 if (row >= 0 && row != selectedRow) {
@@ -49,8 +49,8 @@ public class MovieFrame extends JFrame {
         // Create a button to select the movie
         JButton selectButton = new JButton("Select");
         selectButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+            //@override
+        	public void actionPerformed(ActionEvent e) {
                 if (selectedRow >= 0) {
                     openTheaterFrame(selectedMovieId);
                 }
