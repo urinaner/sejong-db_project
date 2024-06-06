@@ -588,9 +588,18 @@ public class MovieReservationGUI extends JFrame {
         int selectedRow = ticketTable.getSelectedRow();
         if (selectedRow >= 0) {
             int ticketId = (int) ticketModel.getValueAt(selectedRow, 0);
+            int seatId = (int) ticketModel.getValueAt(selectedRow, 3); // Get the seat ID from the selected ticket
 
             try {
                 Connection conn = DB_Connect.getConnection();
+
+                // Update the seat availability to true
+                PreparedStatement pstmtUpdateSeat = conn.prepareStatement("UPDATE seats SET is_available = true WHERE seat_id = ?");
+                pstmtUpdateSeat.setInt(1, seatId);
+                pstmtUpdateSeat.executeUpdate();
+                pstmtUpdateSeat.close();
+
+                // Delete the ticket
                 PreparedStatement pstmt = conn.prepareStatement("DELETE FROM tickets WHERE ticket_id = ?");
                 pstmt.setInt(1, ticketId);
                 int rowsAffected = pstmt.executeUpdate();
@@ -611,6 +620,7 @@ public class MovieReservationGUI extends JFrame {
             JOptionPane.showMessageDialog(null, "Please select a ticket to delete.");
         }
     }
+
 
     private void searchMovies() {
         String title = titleField.getText();
