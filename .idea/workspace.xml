@@ -5,10 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="68ec7b45-9e15-4fbf-9755-5d928b7d3dbe" name="변경" comment="Fix: init">
+      <change afterPath="$PROJECT_DIR$/src/view/MovieReservationGUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dao/managerDAOVIEW.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/Init.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/Init.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dao/ScheduleDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/ScheduleDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/DB_Close.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/DB_Close.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/DB_Connect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/DB_Connect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/ManagerFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/ManagerFrame.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

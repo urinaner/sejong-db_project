@@ -1,5 +1,6 @@
 package view;
 
+import util.DB_Connect;
 import util.Init;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -70,7 +71,7 @@ public class ManagerFrame extends JFrame {
         clearContent();
         
         try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db1?serverTimezone=UTC", "root", "1234");
+            Connection conn = DB_Connect.getConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SHOW TABLES");
 
@@ -111,7 +112,7 @@ public class ManagerFrame extends JFrame {
     
     private void showTableMoviesData(String tableName) {
         try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db1?serverTimezone=UTC", "root", "1234");
+            Connection conn = DB_Connect.getConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName);
 
@@ -145,7 +146,7 @@ public class ManagerFrame extends JFrame {
         clearContent();
         
         try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db1?serverTimezone=UTC", "root", "1234");
+            Connection conn = DB_Connect.getConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SHOW TABLES");
 
@@ -218,7 +219,7 @@ public class ManagerFrame extends JFrame {
     
     private void insert(String tableName) {
         try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db1?serverTimezone=UTC", "root", "1234");
+            Connection conn = DB_Connect.getConnection();
             Statement stmt = conn.createStatement();
 
             JPanel panel = new JPanel(new GridLayout(0, 2));
@@ -253,7 +254,7 @@ public class ManagerFrame extends JFrame {
 
         if (afterwhere!= null && !afterwhere.isEmpty()) {
             try {
-                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db1?serverTimezone=UTC", "root", "1234");
+                Connection conn = DB_Connect.getConnection();
                 Statement stmt = conn.createStatement();
 
                 String query = "DELETE FROM " + tableName + " WHERE " + afterwhere;
@@ -276,7 +277,7 @@ public class ManagerFrame extends JFrame {
 
         if (afterwhere!= null && !afterwhere.isEmpty()) {
             try {
-                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db1?serverTimezone=UTC", "root", "1234");
+                Connection conn = DB_Connect.getConnection();
                 Statement stmt = conn.createStatement();
 
                 String query = "UPDATE " + tableName + " "+afterwhere;

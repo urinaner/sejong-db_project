@@ -11,7 +11,7 @@ public class DB_Connect {
         }
     }
     public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/db1?serverTimezone=UTC","root","1234");
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/db1?serverTimezone=UTC","root","wkddudwo1!");
     }
 
 }

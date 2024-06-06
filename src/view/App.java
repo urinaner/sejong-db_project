@@ -53,8 +53,14 @@ public class App {
                 switch (result) {
                     case 0:
                         JOptionPane.showMessageDialog(null, "Login successful");
-                        new MovieFrame();
+                        // 로그인 성공 시 MovieReservationGUI를 생성하고 화면에 표시
+                        SwingUtilities.invokeLater(new Runnable() {
+                            public void run() {
+                                new MovieReservationGUI().setVisible(true);
+                            }
+                        });
                         break;
+
                     case -1:
                         JOptionPane.showMessageDialog(null, "Invalid phone number");
                         break;
