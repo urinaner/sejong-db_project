@@ -4,14 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68ec7b45-9e15-4fbf-9755-5d928b7d3dbe" name="변경" comment="Fix: init">
-      <change afterPath="$PROJECT_DIR$/src/view/MovieReservationGUI.java" afterDir="false" />
+    <list default="true" id="68ec7b45-9e15-4fbf-9755-5d928b7d3dbe" name="변경" comment="Feat: init1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dao/ScheduleDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/ScheduleDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/DB_Close.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/DB_Close.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/DB_Connect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/DB_Connect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/ManagerFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/ManagerFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/MovieReservationGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MovieReservationGUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -172,7 +167,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717476002964</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Feat: init1">
+      <option name="closed" value="true" />
+      <created>1717659615038</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1717659615038</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -186,6 +189,7 @@
     <MESSAGE value="Feat: MovieFrame detail, TheaterDAO" />
     <MESSAGE value="Feat: TheaterFrame create" />
     <MESSAGE value="Fix: init" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix: init" />
+    <MESSAGE value="Feat: init1" />
+    <option name="LAST_COMMIT_MESSAGE" value="Feat: init1" />
   </component>
 </project>
