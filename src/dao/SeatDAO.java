@@ -47,4 +47,19 @@ public class SeatDAO {
 
         return seats;
     }
+
+    public void updateSeatAvailability(int seatId, boolean isAvailable) {
+        String query = "UPDATE seats SET is_available = ? WHERE seat_id = ?";
+
+        try (
+                Connection conn = DB_Connect.getConnection();
+                PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setBoolean(1, isAvailable);
+            ps.setInt(2, seatId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

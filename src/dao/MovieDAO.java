@@ -25,6 +25,8 @@ public class MovieDAO {
         ResultSet rs = null;
 
         try {
+//            Connection conn = DB_Connect.getConnection();
+
             con = DB_Connect.getConnection();
             String sql = "SELECT * FROM movies";
             pstmt = con.prepareStatement(sql);

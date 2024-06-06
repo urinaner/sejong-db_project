@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68ec7b45-9e15-4fbf-9755-5d928b7d3dbe" name="변경" comment="Feat: init1">
+    <list default="true" id="68ec7b45-9e15-4fbf-9755-5d928b7d3dbe" name="변경" comment="Feat: MovieGUI update">
+      <change afterPath="$PROJECT_DIR$/src/dao/ReservationDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dao/MovieDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/MovieDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dao/SeatDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/SeatDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dto/Reservation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dto/Reservation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/MovieReservationGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MovieReservationGUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -174,7 +179,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717659615038</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Feat: MovieGUI update">
+      <option name="closed" value="true" />
+      <created>1717666401847</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1717666401847</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -189,6 +202,7 @@
     <MESSAGE value="Feat: TheaterFrame create" />
     <MESSAGE value="Fix: init" />
     <MESSAGE value="Feat: init1" />
-    <option name="LAST_COMMIT_MESSAGE" value="Feat: init1" />
+    <MESSAGE value="Feat: MovieGUI update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Feat: MovieGUI update" />
   </component>
 </project>
