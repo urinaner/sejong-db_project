@@ -19,8 +19,8 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 
 public class MovieReservationGUI extends JFrame {
-    private JTable movieTable, scheduleTable, seatTable;
-    private DefaultTableModel movieModel, scheduleModel, seatModel;
+    private JTable movieTable, scheduleTable, seatTable, reservedSeatTable;
+    private DefaultTableModel movieModel, scheduleModel, seatModel, reservedSeatModel ;
     private JTextField titleField, directorField, actorsField, genreField;
     private int selectedMovieId = -1;
     private int selectedScheduleId = -1;
@@ -42,9 +42,12 @@ public class MovieReservationGUI extends JFrame {
         // Seat panel
         JPanel seatPanel = createSeatPanel();
 
+        JPanel reservePanel = createReservationPanel();
+
         add(moviePanel);
         add(schedulePanel);
         add(seatPanel);
+        add(reservePanel);
     }
 
     private JPanel createMoviePanel() {
@@ -138,6 +141,22 @@ public class MovieReservationGUI extends JFrame {
         });
         buttonPanel.add(reserveButton);
         panel.add(buttonPanel, BorderLayout.SOUTH);
+
+        return panel;
+    }
+    private JPanel createReservationPanel() {
+        JPanel panel = new JPanel(new BorderLayout());
+
+        // Create table model for reserved seats
+        String[] columnNames = {"Seat ID", "Theater ID", "Available", "Row", "Column"};
+        reservedSeatModel = new DefaultTableModel(columnNames, 0);
+
+        // Create table and add the table model
+        reservedSeatTable = new JTable(reservedSeatModel);
+
+        // Add table to scroll pane
+        JScrollPane scrollPane = new JScrollPane(reservedSeatTable);
+        panel.add(scrollPane, BorderLayout.CENTER);
 
         return panel;
     }
