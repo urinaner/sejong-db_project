@@ -205,7 +205,6 @@ public class Init {
                 + "(12, 'PayPal', 1, 16000, 1, '2024-06-12 11:25:00')";
         stmt.executeUpdate(insertReservationsData);
 
-
         String inserSeatsData = "INSERT INTO seats (seat_id, seat_row, seat_col, theater_id, is_available) VALUES "
                 //1관
                 +"(1, 1, 1, 1, 1),"
