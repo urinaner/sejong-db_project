@@ -1,6 +1,8 @@
 package util;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class Init {
     private static Connection con;
@@ -10,11 +12,8 @@ public class Init {
             con = DB_Connect.getConnection();
             System.out.println("데이터베이스 연결 성공");
 
-            // 테이블 생성
-            createTables();
-
-            // 예제 데이터 주입
-            insertExampleData();
+            // 테이블 생성 및 데이터 주입
+            createTablesAndInsertData();
 
             System.out.println("테이블 생성 및 예제 데이터 주입 완료");
         } catch (SQLException e) {
@@ -30,20 +29,27 @@ public class Init {
         }
     }
 
-    private static void createTables() throws SQLException {
+    private static void createTablesAndInsertData() throws SQLException {
         Statement stmt = con.createStatement();
 
         // 기존 테이블 삭제
         stmt.executeUpdate("SET FOREIGN_KEY_CHECKS=0");
-        stmt.execute("DROP TABLE IF EXISTS customers");
         stmt.execute("DROP TABLE IF EXISTS tickets");
+        stmt.execute("DROP TABLE IF EXISTS reservations");
+        stmt.execute("DROP TABLE IF EXISTS customers");
         stmt.execute("DROP TABLE IF EXISTS seats");
         stmt.execute("DROP TABLE IF EXISTS schedules");
         stmt.execute("DROP TABLE IF EXISTS movies");
         stmt.execute("DROP TABLE IF EXISTS theaters");
         stmt.executeUpdate("SET FOREIGN_KEY_CHECKS=1");
 
-        // 새로운 테이블 생성
+        // 새로운 테이블 생성 및 데이터 주입
+        createTables(stmt);
+        insertExampleData(stmt);
+    }
+
+    private static void createTables(Statement stmt) throws SQLException {
+        // theaters 테이블 생성
         stmt.execute("CREATE TABLE IF NOT EXISTS theaters (" +
                 "theater_id INT PRIMARY KEY," +
                 "seat_count INT," +
@@ -52,6 +58,7 @@ public class Init {
                 "seat_column INT" +
                 ")");
 
+        // movies 테이블 생성
         stmt.execute("CREATE TABLE IF NOT EXISTS movies (" +
                 "movie_id INT PRIMARY KEY," +
                 "title VARCHAR(100) NOT NULL," +
@@ -62,13 +69,14 @@ public class Init {
                 "genre VARCHAR(50)," +
                 "introduce VARCHAR(300)," +
                 "open_date DATE," +
-                "rating_score INT" +
+                "rating_score FLOAT" +
                 ")");
 
+        // schedules 테이블 생성
         stmt.execute("CREATE TABLE IF NOT EXISTS schedules (" +
                 "schedule_id INT PRIMARY KEY," +
-                "movie_id INT," +
-                "theater_id INT," +
+                "movie_id INT NOT NULL," +
+                "theater_id INT NOT NULL," +
                 "start_date DATE," +
                 "day_of_week VARCHAR(10)," +
                 "show_number INT," +
@@ -77,52 +85,54 @@ public class Init {
                 "FOREIGN KEY (theater_id) REFERENCES theaters(theater_id)" +
                 ")");
 
-        String createSeatsTable = "CREATE TABLE seats ("
-                + "seat_id INT PRIMARY KEY,"
-                + "seat_row INT,"
-                + "seat_col INT,"
-                + "theater_id INT,"
-                + "is_available INT,"
-                + "FOREIGN KEY (theater_id) REFERENCES theaters(theater_id))";
-        stmt.executeUpdate(createSeatsTable);
-
-        stmt.execute("CREATE TABLE IF NOT EXISTS customers (" +
-                "customer_id INT NOT NULL," +
-                "customer_name VARCHAR(45) NULL DEFAULT NULL," +
-                "customer_mobilenumber VARCHAR(20) NOT NULL," +
-                "customer_emailaddress VARCHAR(45) NULL DEFAULT NULL," +
-                "PRIMARY KEY (customer_id)" +
+        // seats 테이블 생성
+        stmt.execute("CREATE TABLE IF NOT EXISTS seats (" +
+                "seat_id INT PRIMARY KEY," +
+                "seat_row INT NOT NULL," +
+                "seat_col INT NOT NULL," +
+                "theater_id INT NOT NULL," +
+                "is_available BOOLEAN NOT NULL," +
+                "FOREIGN KEY (theater_id) REFERENCES theaters(theater_id)" +
                 ")");
 
+        // customers 테이블 생성
+        stmt.execute("CREATE TABLE IF NOT EXISTS customers (" +
+                "customer_id INT PRIMARY KEY," +
+                "customer_name VARCHAR(45) NOT NULL," +
+                "customer_mobilenumber VARCHAR(20) NOT NULL," +
+                "customer_emailaddress VARCHAR(45) NULL" +
+                ")");
+
+        // reservations 테이블 생성
         stmt.execute("CREATE TABLE IF NOT EXISTS reservations (" +
-                "reservation_number INT NOT NULL," +
+                "reservation_number INT PRIMARY KEY," +
                 "reservation_payment VARCHAR(45)," +
                 "reservation_status BOOLEAN NOT NULL," +
                 "reservation_amount INT," +
                 "customer_ID INT NOT NULL," +
                 "reservation_date DATE," +
-                "PRIMARY KEY (reservation_number)," +
                 "FOREIGN KEY (customer_ID) REFERENCES customers(customer_id)" +
                 ")");
 
-        String createTicketsTable = "CREATE TABLE IF NOT EXISTS tickets ("
-                + "ticket_id INT PRIMARY KEY, "
-                + "schedule_id INT, "
-                + "theater_id INT, "
-                + "seat_id INT, "
-                + "reservation_number INT, "
-                + "is_purchase TINYINT(1), "
-                + "standard_price INT, "
-                + "selling_price INT, "
-                + "FOREIGN KEY (schedule_id) REFERENCES schedules(schedule_id), "
-                + "FOREIGN KEY (theater_id) REFERENCES theaters(theater_id), "
-                + "FOREIGN KEY (seat_id) REFERENCES seats(seat_id), "
-                + "FOREIGN KEY (reservation_number) REFERENCES reservations(reservation_number))";
-        stmt.executeUpdate(createTicketsTable);
+        // tickets 테이블 생성
+        stmt.execute("CREATE TABLE IF NOT EXISTS tickets (" +
+                "ticket_id INT PRIMARY KEY," +
+                "schedule_id INT NOT NULL," +
+                "theater_id INT NOT NULL," +
+                "seat_id INT NOT NULL," +
+                "reservation_number INT NOT NULL," +
+                "is_purchase BOOLEAN NOT NULL," +
+                "standard_price INT," +
+                "selling_price INT," +
+                "FOREIGN KEY (schedule_id) REFERENCES schedules(schedule_id)," +
+                "FOREIGN KEY (theater_id) REFERENCES theaters(theater_id)," +
+                "FOREIGN KEY (seat_id) REFERENCES seats(seat_id)," +
+                "FOREIGN KEY (reservation_number) REFERENCES reservations(reservation_number)" +
+                ")");
     }
 
-    private static void insertExampleData() throws SQLException {
-        Statement stmt = con.createStatement();
+    private static void insertExampleData(Statement stmt) throws SQLException {
+        Statement stmt1 = con.createStatement();
         // Insert data into movies table
         String insertMoviesData = "INSERT INTO movies (movie_id, title, running_time, rating, director, actors, genre, introduce, open_date, rating_score) VALUES "
                 + "(1, 'Interstellar', '02:49:00', 'PG-13', 'Christopher Nolan', 'Matthew McConaughey, Anne Hathaway', 'Sci-Fi', 'A journey to save humanity', '2014-11-07', 8.6),"
@@ -137,7 +147,7 @@ public class Init {
                 + "(10, 'Annabelle', '01:39:00', 'R', 'John R. Leonetti', 'Annabelle Wallis, Ward Horton', 'Horror', 'A couple begins to experience terrifying events', '2014-10-03', 5.4),"
                 + "(11, 'Frozen', '01:42:00', 'PG', 'Chris Buck, Jennifer Lee', 'Kristen Bell, Idina Menzel', 'Animation', 'A young woman must save her kingdom from eternal winter', '2013-11-27', 7.4),"
                 + "(12, 'Transformers', '02:24:00', 'PG-13', 'Michael Bay', 'Shia LaBeouf, Megan Fox', 'Action', 'Humans caught in a war between two factions of robots', '2007-07-03', 7.0)";
-        stmt.executeUpdate(insertMoviesData);
+        stmt1.executeUpdate(insertMoviesData);
 
         // Insert data into theaters table
         String insertTheatersData = "INSERT INTO theaters (theater_id, seat_count, is_available, seat_row, seat_column) VALUES "
@@ -153,15 +163,13 @@ public class Init {
                 + "(10, 40, 1, 4, 10),"
                 + "(11, 24, 1, 6, 4),"
                 + "(12, 18, 1, 6, 3)";
-        stmt.executeUpdate(insertTheatersData);
+        stmt1.executeUpdate(insertTheatersData);
 
-        // Insert data into customers table
         String insertCustomersData = "INSERT INTO customers (customer_id, customer_name, customer_mobilenumber, customer_emailaddress) VALUES "
                 + "(1, 'Kim', '01012345678', 'Kim@example.com')";
-        stmt.executeUpdate(insertCustomersData);
+        stmt1.executeUpdate(insertCustomersData);
 
-        // Insert data into schedules table
-        // Insert data into schedules table
+
         String insertSchedulesData = "INSERT INTO schedules (schedule_id, movie_id, theater_id, start_date, day_of_week, show_number, start_time) VALUES "
                 + "(1, 1, 1, '2024-01-01', 'Monday', 1, '10:00:00'),"
                 + "(2, 1, 2, '2024-02-01', 'Tuesday', 2, '14:00:00'),"
@@ -187,9 +195,8 @@ public class Init {
                 + "(22, 11, 10, '2024-10-11', 'Saturday', 2, '16:45:00'),"
                 + "(23, 12, 11, '2024-11-12', 'Friday', 1, '11:15:00'),"
                 + "(24, 12, 12, '2024-12-12', 'Sunday', 2, '15:15:00')";
-        stmt.executeUpdate(insertSchedulesData);
+        stmt1.executeUpdate(insertSchedulesData);
 
-        // Insert data into reservations table
         String insertReservationsData = "INSERT INTO reservations (reservation_number, reservation_payment, reservation_status, reservation_amount, customer_id, reservation_date) VALUES "
                 + "(1, 'Credit Card', 1, 15000, 1, '2024-06-01 15:30:00'),"
                 + "(2, 'PayPal', 1, 20000, 1, '2024-06-02 10:45:00'),"
@@ -203,7 +210,7 @@ public class Init {
                 + "(10, 'Credit Card', 1, 14000, 1, '2024-06-10 10:20:00'),"
                 + "(11, 'Cash', 1, 17000, 1, '2024-06-11 14:00:00'),"
                 + "(12, 'PayPal', 1, 16000, 1, '2024-06-12 11:25:00')";
-        stmt.executeUpdate(insertReservationsData);
+        stmt1.executeUpdate(insertReservationsData);
 
 
         String inserSeatsData = "INSERT INTO seats (seat_id, seat_row, seat_col, theater_id, is_available) VALUES "
@@ -546,7 +553,7 @@ public class Init {
                 +"(314, 6, 1, 12, 1),"
                 +"(315, 6, 2, 12, 1),"
                 +"(316, 6, 3, 12, 1)";
-        stmt.executeUpdate(inserSeatsData);
+        stmt1.executeUpdate(inserSeatsData);
 
         // Insert data into tickets table
         String insertTicketsData = "INSERT INTO tickets (ticket_id, schedule_id, theater_id, seat_id, reservation_number, is_purchase, standard_price, selling_price) VALUES "
@@ -562,7 +569,10 @@ public class Init {
                 + "(10, 5, 3, 10, 10, 1, 11000, 11500),"
                 + "(11, 6, 3, 11, 11, 1, 11000, 11000),"
                 + "(12, 6, 3, 12, 12, 1, 11000, 12000)";
-        stmt.executeUpdate(insertTicketsData);
+        stmt1.executeUpdate(insertTicketsData);
     }
 
+    public static void main(String[] args) {
+        run();
+    }
 }

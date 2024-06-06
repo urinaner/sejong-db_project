@@ -3,6 +3,9 @@ package view;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
+import util.Init;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,10 +30,18 @@ public class ManagerFrame extends JFrame {
     public ManagerFrame() {
         setTitle("Manager");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 400);
+        setSize(900, 400);
         setLocationRelativeTo(null);
 
         panel = new JPanel();
+        
+        JButton initTableButton = new JButton("Init table");
+        initTableButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Init.run();
+            }
+        });
 
         JButton showTableButton = new JButton("Show All Tables");
         showTableButton.addActionListener(new ActionListener() {
@@ -72,6 +83,8 @@ public class ManagerFrame extends JFrame {
             }
         });
 
+        
+        panel.add(initTableButton);
         panel.add(showTableButton);
         panel.add(addMovieButton);
         panel.add(addScheduleButton);
@@ -80,12 +93,15 @@ public class ManagerFrame extends JFrame {
 
         add(panel, BorderLayout.NORTH);
 
-        // Initialize table
         table = new JTable();
         scrollPane = new JScrollPane(table);
         add(scrollPane, BorderLayout.CENTER);
     }
 
+    private void initTable() {
+
+    }
+    
     private void showTable() {
         try {
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db1?serverTimezone=UTC", "root", "1234");
@@ -171,4 +187,7 @@ public class ManagerFrame extends JFrame {
             e.printStackTrace();
         }
     }
+    
+    
+    
 }
