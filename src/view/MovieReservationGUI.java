@@ -588,6 +588,7 @@ public class MovieReservationGUI extends JFrame {
             panel.add(showMoreButton, BorderLayout.SOUTH);
 
             JOptionPane.showMessageDialog(null, panel, "Reservation Details", JOptionPane.INFORMATION_MESSAGE);
+            populateTicketTable();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -627,7 +628,7 @@ public class MovieReservationGUI extends JFrame {
 
 
 
-    private void populateTicketTable() {
+    private static void populateTicketTable() {
         try {
             Connection conn = DB_Connect.getConnection();
             Statement stmt = conn.createStatement();

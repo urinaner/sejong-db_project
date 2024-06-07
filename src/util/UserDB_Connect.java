@@ -13,5 +13,4 @@ public class UserDB_Connect {
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/db2?serverTimezone=UTC","user1","user1");
     }
-
 }
