@@ -37,7 +37,7 @@ public class App {
         nameField = new JTextField();
         jPanel.add(nameField);
 
-        JLabel phoneNumberLabel = new JLabel("Phone Number:");
+        JLabel phoneNumberLabel = new JLabel("Password:");
         jPanel.add(phoneNumberLabel);
 
         phoneNumberField = new JTextField();
@@ -62,7 +62,7 @@ public class App {
                         break;
 
                     case -1:
-                        JOptionPane.showMessageDialog(null, "Invalid phone number");
+                        JOptionPane.showMessageDialog(null, "Invalid password");
                         break;
                     case -2:
                         JOptionPane.showMessageDialog(null, "Unregistered name");

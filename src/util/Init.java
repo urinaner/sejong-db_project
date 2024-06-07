@@ -177,7 +177,9 @@ public class Init {
         		+"(9, 'H', '01099999999', 'H@example.com'),"
         		+"(10, 'I', '01000000000', 'I@example.com'),"
         		+"(11, 'J', '01011111111', 'J@example.com'),"
-        		+"(12, 'K', '01071829182', 'K@example.com')";
+                +"(12, 'user1', 'user1', 'user@example.com'),"
+                +"(13, 'K', '01071829182', 'K@example.com')";
+
         stmt1.executeUpdate(insertCustomersData);
 
 
