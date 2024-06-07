@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68ec7b45-9e15-4fbf-9755-5d928b7d3dbe" name="변경" comment="Feat: seat GUI update + seat -&gt; ticket but ticket &lt;- seat x">
+    <list default="true" id="68ec7b45-9e15-4fbf-9755-5d928b7d3dbe" name="변경" comment="Feat: seat GUI update + seat">
+      <change afterPath="$PROJECT_DIR$/src/util/UserDB_Connect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/DB_Connect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/DB_Connect.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/MovieReservationGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/MovieReservationGUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -109,6 +112,7 @@
       <option name="presentableId" value="Default" />
       <updated>1717388929024</updated>
       <workItem from="1717388930928" duration="41019000" />
+      <workItem from="1717752023347" duration="1046000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -190,7 +194,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717685496122</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Feat: seat GUI update + seat">
+      <option name="closed" value="true" />
+      <created>1717685779008</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1717685779008</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -207,6 +219,7 @@
     <MESSAGE value="Feat: init1" />
     <MESSAGE value="Feat: MovieGUI update" />
     <MESSAGE value="Feat: seat GUI update + seat -&gt; ticket but ticket &lt;- seat x" />
-    <option name="LAST_COMMIT_MESSAGE" value="Feat: seat GUI update + seat -&gt; ticket but ticket &lt;- seat x" />
+    <MESSAGE value="Feat: seat GUI update + seat" />
+    <option name="LAST_COMMIT_MESSAGE" value="Feat: seat GUI update + seat" />
   </component>
 </project>

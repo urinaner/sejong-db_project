@@ -14,7 +14,8 @@ import java.util.List;
 
 public class MovieReservationGUI extends JFrame {
     private JTable movieTable, scheduleTable, reservationTable, ticketTable ;
-    private DefaultTableModel movieModel, scheduleModel, reservationModel, ticketModel ;
+    private DefaultTableModel movieModel, scheduleModel, reservationModel ;
+    private static DefaultTableModel ticketModel;
     private JTextField titleField, directorField, actorsField, genreField;
     private int selectedMovieId = -1;
     private int selectedScheduleId = -1;
@@ -158,7 +159,7 @@ public class MovieReservationGUI extends JFrame {
         populateMovieTable();
     }
 
- 
+
 
     private JPanel createSchedulePanel() {
         JPanel panel = new JPanel(new BorderLayout());
@@ -445,14 +446,14 @@ public class MovieReservationGUI extends JFrame {
         try {
             Connection conn = DB_Connect.getConnection();
             String query = "SELECT r.reservation_number, m.title, s.start_date AS schedule_date, t.theater_id, " +
-                           "CONCAT(se.seat_row, '-', se.seat_col) AS seat_number, ti.selling_price " +
-                           "FROM reservations r " +
-                           "JOIN tickets ti ON r.reservation_number = ti.reservation_number " +
-                           "JOIN schedules s ON ti.schedule_id = s.schedule_id " +
-                           "JOIN movies m ON s.movie_id = m.movie_id " +
-                           "JOIN theaters t ON s.theater_id = t.theater_id " +
-                           "JOIN seats se ON ti.seat_id = se.seat_id " +
-                           "WHERE r.customer_ID = ?"; // Assuming customer_ID is the current user's ID
+                    "CONCAT(se.seat_row, '-', se.seat_col) AS seat_number, ti.selling_price " +
+                    "FROM reservations r " +
+                    "JOIN tickets ti ON r.reservation_number = ti.reservation_number " +
+                    "JOIN schedules s ON ti.schedule_id = s.schedule_id " +
+                    "JOIN movies m ON s.movie_id = m.movie_id " +
+                    "JOIN theaters t ON s.theater_id = t.theater_id " +
+                    "JOIN seats se ON ti.seat_id = se.seat_id " +
+                    "WHERE r.customer_ID = ?"; // Assuming customer_ID is the current user's ID
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setInt(1, 1); // Replace with the actual customer ID
             ResultSet rs = pstmt.executeQuery();
@@ -460,12 +461,12 @@ public class MovieReservationGUI extends JFrame {
             reservationModel.setRowCount(0);
             while (rs.next()) {
                 Object[] rowData = {
-                    rs.getInt("reservation_number"),
-                    rs.getString("title"),
-                    rs.getDate("schedule_date"),
-                    rs.getInt("theater_id"),
-                    rs.getString("seat_number"),
-                    rs.getInt("selling_price")
+                        rs.getInt("reservation_number"),
+                        rs.getString("title"),
+                        rs.getDate("schedule_date"),
+                        rs.getInt("theater_id"),
+                        rs.getString("seat_number"),
+                        rs.getInt("selling_price")
                 };
                 reservationModel.addRow(rowData);
             }
@@ -505,10 +506,8 @@ public class MovieReservationGUI extends JFrame {
 
         // Populate the table with reservation data
         populateReservationTable();
-        
-        
-        
-        
+
+
         // Add buttons for ticket management
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER)); // Use FlowLayout for button panel
         JButton deleteButton = new JButton("Delete Ticket");
@@ -540,24 +539,21 @@ public class MovieReservationGUI extends JFrame {
 
         // Add the button panel to the main panel
         panel.add(buttonPanel, BorderLayout.SOUTH);
-        
-        
-        
-        
+
         return panel;
     }
 
-    private void showReservationDetails(int reservationNumber) {
+    private static void showReservationDetails(int reservationNumber) {
         try {
             Connection conn = DB_Connect.getConnection();
             String query = "SELECT m.title, s.start_date AS schedule_date, t.theater_id, " +
-                           "CONCAT(se.seat_row, '-', se.seat_col) AS seat_number, ti.selling_price " +
-                           "FROM tickets ti " +
-                           "JOIN schedules s ON ti.schedule_id = s.schedule_id " +
-                           "JOIN movies m ON s.movie_id = m.movie_id " +
-                           "JOIN theaters t ON s.theater_id = t.theater_id " +
-                           "JOIN seats se ON ti.seat_id = se.seat_id " +
-                           "WHERE ti.reservation_number = ?";
+                    "CONCAT(se.seat_row, '-', se.seat_col) AS seat_number, ti.selling_price " +
+                    "FROM tickets ti " +
+                    "JOIN schedules s ON ti.schedule_id = s.schedule_id " +
+                    "JOIN movies m ON s.movie_id = m.movie_id " +
+                    "JOIN theaters t ON s.theater_id = t.theater_id " +
+                    "JOIN seats se ON ti.seat_id = se.seat_id " +
+                    "WHERE ti.reservation_number = ?";
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setInt(1, reservationNumber);
             ResultSet rs = pstmt.executeQuery();
@@ -576,12 +572,59 @@ public class MovieReservationGUI extends JFrame {
             pstmt.close();
             conn.close();
 
-            // Show the details in a dialog
-            JOptionPane.showMessageDialog(null, details.toString(), "Reservation Details", JOptionPane.INFORMATION_MESSAGE);
+            // Show the details in a dialog with a "Show More Detail" button
+            JButton showMoreButton = new JButton("Show More Detail");
+            showMoreButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    showTicketDetails(reservationNumber);
+                }
+            });
+
+            JPanel panel = new JPanel(new BorderLayout());
+            JTextArea textArea = new JTextArea(details.toString());
+            textArea.setEditable(false);
+            panel.add(new JScrollPane(textArea), BorderLayout.CENTER);
+            panel.add(showMoreButton, BorderLayout.SOUTH);
+
+            JOptionPane.showMessageDialog(null, panel, "Reservation Details", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
+
+    private static void showTicketDetails(int reservationNumber) {
+        try {
+            Connection conn = DB_Connect.getConnection();
+            String query = "SELECT * FROM tickets WHERE reservation_number = ?";
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1, reservationNumber);
+            ResultSet rs = pstmt.executeQuery();
+
+            ticketModel.setRowCount(0);
+            while (rs.next()) {
+                Object[] rowData = {
+                        rs.getInt("ticket_id"),
+                        rs.getInt("schedule_id"),
+                        rs.getInt("theater_id"),
+                        rs.getInt("seat_id"),
+                        rs.getInt("reservation_number"),
+                        rs.getBoolean("is_purchase"),
+                        rs.getInt("standard_price"),
+                        rs.getInt("selling_price")
+                };
+                ticketModel.addRow(rowData);
+            }
+
+            rs.close();
+            pstmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
     private void populateTicketTable() {
@@ -627,8 +670,8 @@ public class MovieReservationGUI extends JFrame {
                 // Retrieve movie ID associated with the selected reservation
                 PreparedStatement pstmtGetMovieId = conn.prepareStatement(
                         "SELECT s.movie_id FROM tickets t " +
-                        "JOIN schedules s ON t.schedule_id = s.schedule_id " +
-                        "WHERE t.reservation_number = ?");
+                                "JOIN schedules s ON t.schedule_id = s.schedule_id " +
+                                "WHERE t.reservation_number = ?");
                 pstmtGetMovieId.setInt(1, reservationId);
                 ResultSet rsMovieId = pstmtGetMovieId.executeQuery();
                 int movieId = 0;
