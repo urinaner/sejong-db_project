@@ -25,16 +25,13 @@ public class MovieFrame extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        // Create main panel with BorderLayout
         JPanel panel = new JPanel(new BorderLayout());
         add(panel);
 
-        // Create a search panel with GridBagLayout
         JPanel searchPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
 
-        // Title label and text field
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.EAST;
@@ -45,7 +42,6 @@ public class MovieFrame extends JFrame {
         titleField = new JTextField(15);
         searchPanel.add(titleField, gbc);
 
-        // Director label and text field
         gbc.gridx = 2;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.EAST;
@@ -57,7 +53,6 @@ public class MovieFrame extends JFrame {
         directorField = new JTextField(15);
         searchPanel.add(directorField, gbc);
 
-        // Actors label and text field
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.anchor = GridBagConstraints.EAST;
@@ -69,7 +64,6 @@ public class MovieFrame extends JFrame {
         actorsField = new JTextField(15);
         searchPanel.add(actorsField, gbc);
 
-        // Genre label and text field
         gbc.gridx = 2;
         gbc.gridy = 1;
         gbc.anchor = GridBagConstraints.EAST;
@@ -81,7 +75,6 @@ public class MovieFrame extends JFrame {
         genreField = new JTextField(15);
         searchPanel.add(genreField, gbc);
 
-        // Search button
         gbc.gridx = 4;
         gbc.gridy = 0;
         gbc.gridheight = 2;
@@ -98,7 +91,6 @@ public class MovieFrame extends JFrame {
 
         panel.add(searchPanel, BorderLayout.NORTH);
 
-        // Create table model and table
         String[] columnNames = {"ID", "Title", "Running Time", "Rating", "Director", "Actors", "Genre", "Introduce", "Open Date", "Rating Score"};
         model = new DefaultTableModel(columnNames, 0);
         table = new JTable(model);
@@ -114,11 +106,9 @@ public class MovieFrame extends JFrame {
             }
         });
 
-        // Add table to scroll pane and add scroll pane to main panel
         JScrollPane scrollPane = new JScrollPane(table);
         panel.add(scrollPane, BorderLayout.CENTER);
 
-        // Create select button and add to main panel
         JButton selectButton = new JButton("Select");
         selectButton.addActionListener(new ActionListener() {
             //@Override
@@ -130,13 +120,11 @@ public class MovieFrame extends JFrame {
         });
         panel.add(selectButton, BorderLayout.SOUTH);
 
-        // Populate table with movie data
         populateTable();
 
         setVisible(true);
     }
 
-    // Method to populate the table with movie data
     private void populateTable() {
         MovieDAO movieDAO = MovieDAO.getInstance();
         List<Movie> movies = movieDAO.getAllMovies();
@@ -159,7 +147,6 @@ public class MovieFrame extends JFrame {
         }
     }
 
-    // Method to search movies based on input criteria
     private void searchMovies() {
         String title = titleField.getText();
         String director = directorField.getText();
@@ -187,7 +174,6 @@ public class MovieFrame extends JFrame {
         }
     }
 
-    // Method to open the schedule frame for the selected movie
     private void openScheduleFrame(int movieId) {
         ScheduleFrame scheduleFrame = new ScheduleFrame(movieId);
         scheduleFrame.setVisible(true);

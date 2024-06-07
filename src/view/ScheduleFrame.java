@@ -23,11 +23,9 @@ public class ScheduleFrame extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        // Create a panel to hold the schedule list and button
         JPanel panel = new JPanel(new BorderLayout());
         add(panel);
 
-        // Create a table model with column names for schedules
         String[] columnNames = {"Schedule ID", "Movie ID", "Theater ID", "Start Date", "Day of Week", "Show Number", "Start Time"};
         scheduleModel = new DefaultTableModel(columnNames, 0);
         scheduleTable = new JTable(scheduleModel);
@@ -45,7 +43,6 @@ public class ScheduleFrame extends JFrame {
         JScrollPane scrollPane = new JScrollPane(scheduleTable);
         panel.add(scrollPane, BorderLayout.CENTER);
 
-        // Create a button to select the schedule
         JButton selectButton = new JButton("Select");
         selectButton.addActionListener(new ActionListener() {
             @Override
@@ -61,11 +58,9 @@ public class ScheduleFrame extends JFrame {
     }
 
     private void populateScheduleTable(int movieId) {
-        // Get schedules for the selected movie from the database using ScheduleDAO
         ScheduleDAO scheduleDAO = ScheduleDAO.getInstance();
         List<Schedule> schedules = scheduleDAO.getSchedulesByMovieId(movieId);
 
-        // Add each schedule to the table model
         for (Schedule schedule : schedules) {
             Object[] rowData = {
                     schedule.getScheduleId(),
@@ -80,7 +75,6 @@ public class ScheduleFrame extends JFrame {
         }
     }
 
-    // Method to open the theater frame for the selected schedule
     private void openTheaterFrame(int scheduleId) {
         TheaterFrame theaterFrame = new TheaterFrame(scheduleId);
         theaterFrame.setVisible(true);

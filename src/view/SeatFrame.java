@@ -15,23 +15,20 @@ public class SeatFrame extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        // Create a panel to hold the seat buttons
         seatPanel = new JPanel();
-        seatPanel.setLayout(new GridLayout(0, 10)); // Adjust the number of columns as needed
+        seatPanel.setLayout(new GridLayout(0, 10));
         add(seatPanel, BorderLayout.CENTER);
 
         populateSeatButtons(theaterId);
     }
 
     private void populateSeatButtons(int theaterId) {
-        // Get seats for the selected theater from the database using SeatDAO
         SeatDAO seatDAO = SeatDAO.getInstance();
         List<Seat> seats = seatDAO.getSeatsByTheaterId(theaterId);
 
-        // Create seat buttons and add them to the seat panel
         for (Seat seat : seats) {
             JButton seatButton = new JButton(seat.getSeatRow() + "-" + seat.getSeatCol());
-            seatButton.setPreferredSize(new Dimension(40, 40)); // Adjust the size of the seat buttons as needed
+            seatButton.setPreferredSize(new Dimension(40, 40));
 
             if (seat.isAvailable()) {
                 seatButton.setBackground(Color.GREEN);

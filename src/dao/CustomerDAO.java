@@ -42,7 +42,7 @@ public class CustomerDAO {
 
             // 이름 확인
             if (rs.next()) {
-                System.out.println("이름이 확인됨.");
+                System.out.println("name chekced.");
                 String dbPhoneNumber = rs.getString("customer_mobilenumber"); // 실제 전화번호
 
                 // 디버그용 출력
@@ -51,7 +51,7 @@ public class CustomerDAO {
 
                 // 1) 전화번호가 맞는 경우.
                 if (phoneNumber.equals(dbPhoneNumber)) {
-                    System.out.println("로그인 완료");
+                    System.out.println("login complete");
                     return 0;
                 }
                 // 2) 전화번호가 틀린 경우
