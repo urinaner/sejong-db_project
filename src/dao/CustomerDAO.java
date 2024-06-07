@@ -43,14 +43,14 @@ public class CustomerDAO {
             // 이름 확인
             if (rs.next()) {
                 System.out.println("name chekced.");
-                String dbPhoneNumber = rs.getString("customer_mobilenumber"); // 실제 전화번호
+                String dbPW = rs.getString("password"); // 실제 전화번호
 
                 // 디버그용 출력
-                System.out.println("입력된 전화번호: " + phoneNumber);
-                System.out.println("데이터베이스 전화번호: " + dbPhoneNumber);
+//                System.out.println("입력된 전화번호: " + phoneNumber);
+                System.out.println("데이터베이스 PW: " + dbPW);
 
                 // 1) 전화번호가 맞는 경우.
-                if (phoneNumber.equals(dbPhoneNumber)) {
+                if (phoneNumber.equals(dbPW)) {
                     System.out.println("login complete");
                     return 0;
                 }

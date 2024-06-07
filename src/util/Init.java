@@ -100,7 +100,8 @@ public class Init {
                 "customer_id INT PRIMARY KEY," +
                 "customer_name VARCHAR(45) NOT NULL," +
                 "customer_mobilenumber VARCHAR(20) NOT NULL," +
-                "customer_emailaddress VARCHAR(45) NULL" +
+                "customer_emailaddress VARCHAR(45) NULL," +
+                "password VARCHAR(45) NOT NULL" +
                 ")");
 
         // reservations 테이블 생성
@@ -165,20 +166,22 @@ public class Init {
                 + "(12, 18, 1, 6, 3)";
         stmt1.executeUpdate(insertTheatersData);
 
-        String insertCustomersData = "INSERT INTO customers (customer_id, customer_name, customer_mobilenumber, customer_emailaddress) VALUES "
-                + "(1, 'Kim', '01012345678', 'Kim@example.com'),"
-        		+"(2, 'A', '01022222222', 'A@example.com'),"
-        		+"(3, 'B', '01033333333', 'B@example.com'),"
-        		+"(4, 'C', '01044444444', 'C@example.com'),"
-        		+"(5, 'D', '01055555555', 'D@example.com'),"
-        		+"(6, 'E', '01066666666', 'E@example.com'),"
-        		+"(7, 'F', '01077777777', 'F@example.com'),"
-        		+"(8, 'G', '01088888888', 'G@example.com'),"
-        		+"(9, 'H', '01099999999', 'H@example.com'),"
-        		+"(10, 'I', '01000000000', 'I@example.com'),"
-        		+"(11, 'J', '01011111111', 'J@example.com'),"
-                +"(12, 'user1', 'user1', 'user@example.com'),"
-                +"(13, 'K', '01071829182', 'K@example.com')";
+        // 데이터 삽입
+        String insertCustomersData = "INSERT INTO customers (customer_id, customer_name, customer_mobilenumber, customer_emailaddress, password) VALUES "
+                + "(1, 'Kim', '01012345678', 'Kim@example.com', 'password1'),"
+                + "(2, 'A', '01022222222', 'A@example.com', 'password2'),"
+                + "(3, 'B', '01033333333', 'B@example.com', 'password3'),"
+                + "(4, 'C', '01044444444', 'C@example.com', 'password4'),"
+                + "(5, 'D', '01055555555', 'D@example.com', 'password5'),"
+                + "(6, 'E', '01066666666', 'E@example.com', 'password6'),"
+                + "(7, 'F', '01077777777', 'F@example.com', 'password7'),"
+                + "(8, 'G', '01088888888', 'G@example.com', 'password8'),"
+                + "(9, 'H', '01099999999', 'H@example.com', 'password9'),"
+                + "(10, 'I', '01000000000', 'I@example.com', 'password10'),"
+                + "(11, 'J', '01011111111', 'J@example.com', 'password11'),"
+                + "(12, 'user1', '01012341234', 'user@example.com', 'user1'),"
+                + "(13, 'K', '01071829182', 'K@example.com', 'password13')";
+
 
         stmt1.executeUpdate(insertCustomersData);
 
