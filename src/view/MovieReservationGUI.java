@@ -23,35 +23,6 @@ public class MovieReservationGUI extends JFrame {
     private JButton reserveButton;
     private Seat selectedSeat = null;
 
-    public MovieReservationGUI() {
-        setTitle("Movie Reservation System");
-        setSize(1200, 800);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new GridLayout(1, 3));
-
-        // Movie panel
-        JPanel moviePanel = createMoviePanel();
-
-        // Schedule panel
-        JPanel schedulePanel = createSchedulePanel();
-
-        // Seat panel
-        JPanel seatPanel = createSeatPanel();
-
-        JPanel ticketPanel = createTicketPanel();
-
-        JPanel reservePanel = createReservationPanel();
-
-        add(moviePanel);
-        add(schedulePanel);
-        add(seatPanel);
-        add(ticketPanel);
-//        add(reservePanel);
-
-        populateMovieTable();
-    }
-
     private JPanel createMoviePanel() {
         JPanel panel = new JPanel(new BorderLayout());
 
@@ -74,11 +45,120 @@ public class MovieReservationGUI extends JFrame {
         JScrollPane scrollPane = new JScrollPane(movieTable);
         panel.add(scrollPane, BorderLayout.CENTER);
 
-        // Add search panel
-        panel.add(createSearchPanel(), BorderLayout.NORTH);
-
         return panel;
     }
+
+    private JPanel createSearchPanel() {
+        JPanel searchPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+
+        // Title label and text field
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.EAST;
+        searchPanel.add(new JLabel("Title:"), gbc);
+
+        gbc.gridx = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        titleField = new JTextField(15);
+        searchPanel.add(titleField, gbc);
+
+        // Director label and text field
+        gbc.gridx = 2;
+        gbc.anchor = GridBagConstraints.EAST;
+        gbc.fill = GridBagConstraints.NONE;
+        searchPanel.add(new JLabel("Director:"), gbc);
+
+        gbc.gridx = 3;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        directorField = new JTextField(15);
+        searchPanel.add(directorField, gbc);
+
+        // Actors label and text field
+        gbc.gridx = 4;
+        gbc.anchor = GridBagConstraints.EAST;
+        gbc.fill = GridBagConstraints.NONE;
+        searchPanel.add(new JLabel("Actors:"), gbc);
+
+        gbc.gridx = 5;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        actorsField = new JTextField(15);
+        searchPanel.add(actorsField, gbc);
+
+        // Genre label and text field
+        gbc.gridx = 6;
+        gbc.anchor = GridBagConstraints.EAST;
+        gbc.fill = GridBagConstraints.NONE;
+        searchPanel.add(new JLabel("Genre:"), gbc);
+
+        gbc.gridx = 7;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        genreField = new JTextField(15);
+        searchPanel.add(genreField, gbc);
+
+        // Search button
+        gbc.gridx = 8;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.anchor = GridBagConstraints.CENTER;
+        JButton searchButton = new JButton("Search");
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                searchMovies();
+            }
+        });
+        searchPanel.add(searchButton, gbc);
+
+        return searchPanel;
+    }
+
+    public MovieReservationGUI() {
+        setTitle("Movie Reservation System");
+        setSize(2000, 800);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Main panel with BorderLayout
+        JPanel mainPanel = new JPanel(new BorderLayout());
+
+        // Create panel for movie and schedule
+        JPanel moviePanelandschedulePanel = new JPanel(new GridLayout(2, 1));
+        JPanel moviePanel = createMoviePanel();
+        JPanel schedulePanel = createSchedulePanel();
+        moviePanelandschedulePanel.add(moviePanel);
+        moviePanelandschedulePanel.add(schedulePanel);
+
+        // Create seat panel
+        JPanel seatPanel = createSeatPanel();
+
+        // Create panel for ticket and reservation
+        JPanel ticketAndReservePanel = new JPanel(new GridLayout(2, 1));
+        JPanel ticketPanel = createTicketPanel();
+        JPanel reservePanel = createReservationPanel();
+        ticketAndReservePanel.add(ticketPanel);
+        ticketAndReservePanel.add(reservePanel);
+
+
+        // Create search panel
+        JPanel searchPanel = createSearchPanel();
+
+        // Add panels to mainPanel
+        mainPanel.add(searchPanel, BorderLayout.NORTH); // Search panel at the top
+        JPanel contentPanel = new JPanel(new GridLayout(1, 3));
+        contentPanel.add(moviePanelandschedulePanel);
+        contentPanel.add(seatPanel);
+        contentPanel.add(ticketAndReservePanel);
+        mainPanel.add(contentPanel, BorderLayout.CENTER);
+
+        // Set mainPanel as the content pane
+        setContentPane(mainPanel);
+
+        populateMovieTable();
+    }
+
+ 
 
     private JPanel createSchedulePanel() {
         JPanel panel = new JPanel(new BorderLayout());
@@ -113,75 +193,7 @@ public class MovieReservationGUI extends JFrame {
         return seatPanel;
     }
 
-    private JPanel createSearchPanel() {
-        JPanel searchPanel = new JPanel(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5);
 
-        // Title label and text field
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.EAST;
-        searchPanel.add(new JLabel("Title:"), gbc);
-
-        gbc.gridx = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        titleField = new JTextField(15);
-        searchPanel.add(titleField, gbc);
-
-        // Director label and text field
-        gbc.gridx = 2;
-        gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.EAST;
-        gbc.fill = GridBagConstraints.NONE;
-        searchPanel.add(new JLabel("Director:"), gbc);
-
-        gbc.gridx = 3;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        directorField = new JTextField(15);
-        searchPanel.add(directorField, gbc);
-
-        // Actors label and text field
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.anchor = GridBagConstraints.EAST;
-        gbc.fill = GridBagConstraints.NONE;
-        searchPanel.add(new JLabel("Actors:"), gbc);
-
-        gbc.gridx = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        actorsField = new JTextField(15);
-        searchPanel.add(actorsField, gbc);
-
-        // Genre label and text field
-        gbc.gridx = 2;
-        gbc.gridy = 1;
-        gbc.anchor = GridBagConstraints.EAST;
-        gbc.fill = GridBagConstraints.NONE;
-        searchPanel.add(new JLabel("Genre:"), gbc);
-
-        gbc.gridx = 3;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        genreField = new JTextField(15);
-        searchPanel.add(genreField, gbc);
-
-        // Search button
-        gbc.gridx = 4;
-        gbc.gridy = 0;
-        gbc.gridheight = 2;
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.anchor = GridBagConstraints.CENTER;
-        JButton searchButton = new JButton("Search");
-        searchButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                searchMovies();
-            }
-        });
-        searchPanel.add(searchButton, gbc);
-
-        return searchPanel;
-    }
 
     private void populateMovieTable() {
         try {
@@ -271,7 +283,7 @@ public class MovieReservationGUI extends JFrame {
             gbc.insets = new Insets(2, 2, 2, 2);
             gbc.fill = GridBagConstraints.BOTH;
 
-            final JButton[][] seatButtons = new JButton[10][10]; // Assuming 10x10 grid for simplicity
+            final JButton[][] seatButtons = new JButton[15][15]; // Assuming 10x10 grid for simplicity
             while (rs.next()) {
                 final int seatId = rs.getInt("seat_id");
                 final int seatRow = rs.getInt("seat_row");
@@ -283,7 +295,11 @@ public class MovieReservationGUI extends JFrame {
                 seatButton.setBorderPainted(false);
 
                 // Set background color based on availability
-                seatButton.setBackground(isAvailable ? Color.BLUE : Color.RED);
+                if (isAvailable) {
+                    seatButton.setBackground(Color.BLUE);
+                } else {
+                    seatButton.setBackground(Color.RED);
+                }
 
                 seatButton.addActionListener(new ActionListener() {
                     @Override
@@ -292,8 +308,13 @@ public class MovieReservationGUI extends JFrame {
                             seatButtons[selectedSeat.getSeatRow()][selectedSeat.getSeatCol()].setBackground(Color.BLUE);
                         }
                         selectedSeat = new Seat(seatId, seatRow, seatCol, isAvailable);
-                        seatButton.setBackground(Color.YELLOW);
-                        reserveButton.setEnabled(true);
+                        if (isAvailable) {
+                            seatButton.setBackground(Color.YELLOW);
+                            reserveButton.setEnabled(true);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "This seat is already reserved.");
+                            reserveButton.setEnabled(false);
+                        }
                     }
                 });
 
@@ -308,7 +329,7 @@ public class MovieReservationGUI extends JFrame {
             reserveButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if (selectedSeat != null) {
+                    if (selectedSeat != null && selectedSeat.isAvailable()) {
                         try {
                             Connection conn = DB_Connect.getConnection();
                             // Update the seat availability to false
@@ -361,6 +382,8 @@ public class MovieReservationGUI extends JFrame {
 
                             // Refresh the ticket table
                             populateTicketTable();
+                            // Refresh the reservation table
+                            populateReservationTable();
 
                             JOptionPane.showMessageDialog(null, "Seat " + selectedSeat.getSeatId() + " in theater " + selectedTheaterId + " has been reserved.");
                             selectedSeat = null;
@@ -369,6 +392,8 @@ public class MovieReservationGUI extends JFrame {
                             ex.printStackTrace();
                             JOptionPane.showMessageDialog(null, "Failed to reserve the seat.");
                         }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Please select an available seat to reserve.");
                     }
                 }
             });
@@ -404,13 +429,93 @@ public class MovieReservationGUI extends JFrame {
         // Populate the table with ticket data
         populateTicketTable();
 
+        return panel;
+    }
+
+    private void changeMovie() {
+        deleteTicket(1);
+
+    }
+
+    private void changeSchedule() {
+        deleteTicket(2);
+    }
+
+    private void populateReservationTable() {
+        try {
+            Connection conn = DB_Connect.getConnection();
+            String query = "SELECT r.reservation_number, m.title, s.start_date AS schedule_date, t.theater_id, " +
+                           "CONCAT(se.seat_row, '-', se.seat_col) AS seat_number, ti.selling_price " +
+                           "FROM reservations r " +
+                           "JOIN tickets ti ON r.reservation_number = ti.reservation_number " +
+                           "JOIN schedules s ON ti.schedule_id = s.schedule_id " +
+                           "JOIN movies m ON s.movie_id = m.movie_id " +
+                           "JOIN theaters t ON s.theater_id = t.theater_id " +
+                           "JOIN seats se ON ti.seat_id = se.seat_id " +
+                           "WHERE r.customer_ID = ?"; // Assuming customer_ID is the current user's ID
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1, 1); // Replace with the actual customer ID
+            ResultSet rs = pstmt.executeQuery();
+
+            reservationModel.setRowCount(0);
+            while (rs.next()) {
+                Object[] rowData = {
+                    rs.getInt("reservation_number"),
+                    rs.getString("title"),
+                    rs.getDate("schedule_date"),
+                    rs.getInt("theater_id"),
+                    rs.getString("seat_number"),
+                    rs.getInt("selling_price")
+                };
+                reservationModel.addRow(rowData);
+            }
+
+            rs.close();
+            pstmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private JPanel createReservationPanel() {
+        JPanel panel = new JPanel(new BorderLayout());
+
+        // Create table model for reservations
+        String[] columnNames = {"Reservation Number", "Title", "Schedule Date", "Theater ID", "Seat Number", "Selling Price"};
+        reservationModel = new DefaultTableModel(columnNames, 0);
+
+        // Create table and add the table model
+        reservationTable = new JTable(reservationModel);
+        reservationTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        reservationTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                int row = reservationTable.rowAtPoint(e.getPoint());
+                if (row >= 0) {
+                    int reservationNumber = (int) reservationModel.getValueAt(row, 0);
+                    showReservationDetails(reservationNumber);
+                }
+            }
+        });
+
+        // Add table to scroll pane
+        JScrollPane scrollPane = new JScrollPane(reservationTable);
+        panel.add(scrollPane, BorderLayout.CENTER);
+
+        // Populate the table with reservation data
+        populateReservationTable();
+        
+        
+        
+        
         // Add buttons for ticket management
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER)); // Use FlowLayout for button panel
         JButton deleteButton = new JButton("Delete Ticket");
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                deleteTicket();
+                deleteTicket(0);
             }
         });
         buttonPanel.add(deleteButton);
@@ -433,127 +538,51 @@ public class MovieReservationGUI extends JFrame {
         });
         buttonPanel.add(changeScheduleButton);
 
+        // Add the button panel to the main panel
         panel.add(buttonPanel, BorderLayout.SOUTH);
-
+        
+        
+        
+        
         return panel;
     }
 
-    private JPanel createReservationPanel() {
-        JPanel panel = new JPanel(new BorderLayout());
-
-        // Create table model for reservations
-        String[] columnNames = {"Reservation Number", "Payment", "Status", "Amount", "Customer ID", "Date"};
-        reservationModel = new DefaultTableModel(columnNames, 0);
-
-        // Create table and add the table model
-        reservationTable = new JTable(reservationModel);
-
-        // Add table to scroll pane
-        JScrollPane scrollPane = new JScrollPane(reservationTable);
-        panel.add(scrollPane, BorderLayout.CENTER);
-
-        // Populate the table with reservation data
-        populateReservationTable();
-
-        return panel;
-    }
-
-    private void changeMovie() {
-        int selectedRow = reservationTable.getSelectedRow();
-        if (selectedRow >= 0) {
-            int reservationNumber = (int) reservationModel.getValueAt(selectedRow, 0);
-
-            // Show a dialog or form to select a new movie
-            // You can retrieve the list of available movies from the database and display them in a combo box or table
-            // Once the user selects a new movie, update the reservation in the database
-
-            // Example code to update the reservation with a new movie ID
-            int newMovieId = 123; // Replace with the selected movie ID
-
-            try {
-                Connection conn = DB_Connect.getConnection();
-                PreparedStatement pstmt = conn.prepareStatement("UPDATE reservations SET movie_id = ? WHERE reservation_number = ?");
-                pstmt.setInt(1, newMovieId);
-                pstmt.setInt(2, reservationNumber);
-                int rowsAffected = pstmt.executeUpdate();
-
-                if (rowsAffected > 0) {
-                    JOptionPane.showMessageDialog(null, "Movie changed successfully.");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Failed to change movie.");
-                }
-
-                pstmt.close();
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Please select a reservation to change the movie.");
-        }
-    }
-
-    private void changeSchedule() {
-        int selectedRow = reservationTable.getSelectedRow();
-        if (selectedRow >= 0) {
-            int reservationNumber = (int) reservationModel.getValueAt(selectedRow, 0);
-
-            // Show a dialog or form to select a new schedule
-            // You can retrieve the list of available schedules for the selected movie from the database and display them in a combo box or table
-            // Once the user selects a new schedule, update the reservation in the database
-
-            // Example code to update the reservation with a new schedule ID
-            int newScheduleId = 456; // Replace with the selected schedule ID
-
-            try {
-                Connection conn = DB_Connect.getConnection();
-                PreparedStatement pstmt = conn.prepareStatement("UPDATE reservations SET schedule_id = ? WHERE reservation_number = ?");
-                pstmt.setInt(1, newScheduleId);
-                pstmt.setInt(2, reservationNumber);
-                int rowsAffected = pstmt.executeUpdate();
-
-                if (rowsAffected > 0) {
-                    JOptionPane.showMessageDialog(null, "Schedule changed successfully.");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Failed to change schedule.");
-                }
-
-                pstmt.close();
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Please select a reservation to change the schedule.");
-        }
-    }
-
-    private void populateReservationTable() {
+    private void showReservationDetails(int reservationNumber) {
         try {
             Connection conn = DB_Connect.getConnection();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM reservations");
+            String query = "SELECT m.title, s.start_date AS schedule_date, t.theater_id, " +
+                           "CONCAT(se.seat_row, '-', se.seat_col) AS seat_number, ti.selling_price " +
+                           "FROM tickets ti " +
+                           "JOIN schedules s ON ti.schedule_id = s.schedule_id " +
+                           "JOIN movies m ON s.movie_id = m.movie_id " +
+                           "JOIN theaters t ON s.theater_id = t.theater_id " +
+                           "JOIN seats se ON ti.seat_id = se.seat_id " +
+                           "WHERE ti.reservation_number = ?";
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1, reservationNumber);
+            ResultSet rs = pstmt.executeQuery();
 
-            reservationModel.setRowCount(0);
+            // Create a string to display the reservation details
+            StringBuilder details = new StringBuilder();
             while (rs.next()) {
-                Object[] rowData = {
-                        rs.getInt("reservation_number"),
-                        rs.getString("reservation_payment"),
-                        rs.getBoolean("reservation_status"),
-                        rs.getInt("reservation_amount"),
-                        rs.getInt("customer_ID"),
-                        rs.getDate("reservation_date")
-                };
-                reservationModel.addRow(rowData);
+                details.append("Title: ").append(rs.getString("title")).append("\n");
+                details.append("Schedule Date: ").append(rs.getDate("schedule_date")).append("\n");
+                details.append("Theater ID: ").append(rs.getInt("theater_id")).append("\n");
+                details.append("Seat Number: ").append(rs.getString("seat_number")).append("\n");
+                details.append("Selling Price: ").append(rs.getInt("selling_price")).append("\n\n");
             }
 
             rs.close();
-            stmt.close();
+            pstmt.close();
             conn.close();
+
+            // Show the details in a dialog
+            JOptionPane.showMessageDialog(null, details.toString(), "Reservation Details", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 
     private void populateTicketTable() {
         try {
@@ -584,37 +613,104 @@ public class MovieReservationGUI extends JFrame {
         }
     }
 
-    private void deleteTicket() {
-        int selectedRow = ticketTable.getSelectedRow();
+    private void deleteTicket(int flag) {
+        int selectedRow = reservationTable.getSelectedRow();
         if (selectedRow >= 0) {
             int ticketId = (int) ticketModel.getValueAt(selectedRow, 0);
             int seatId = (int) ticketModel.getValueAt(selectedRow, 3); // Get the seat ID from the selected ticket
+            int reservationId = (int) ticketModel.getValueAt(selectedRow, 4);
 
             try {
                 Connection conn = DB_Connect.getConnection();
+                conn.setAutoCommit(false); // Start transaction
 
-                // Update the seat availability to true
-                PreparedStatement pstmtUpdateSeat = conn.prepareStatement("UPDATE seats SET is_available = true WHERE seat_id = ?");
-                pstmtUpdateSeat.setInt(1, seatId);
-                pstmtUpdateSeat.executeUpdate();
-                pstmtUpdateSeat.close();
+                // Retrieve movie ID associated with the selected reservation
+                PreparedStatement pstmtGetMovieId = conn.prepareStatement(
+                        "SELECT s.movie_id FROM tickets t " +
+                        "JOIN schedules s ON t.schedule_id = s.schedule_id " +
+                        "WHERE t.reservation_number = ?");
+                pstmtGetMovieId.setInt(1, reservationId);
+                ResultSet rsMovieId = pstmtGetMovieId.executeQuery();
+                int movieId = 0;
+                if (rsMovieId.next()) {
+                    movieId = rsMovieId.getInt("movie_id");
+                }
+                pstmtGetMovieId.close();
 
-                // Delete the ticket
-                PreparedStatement pstmt = conn.prepareStatement("DELETE FROM tickets WHERE ticket_id = ?");
-                pstmt.setInt(1, ticketId);
-                int rowsAffected = pstmt.executeUpdate();
+                // Check if the ticket exists and its reservation number
+                PreparedStatement pstmtCheckTicket = conn.prepareStatement("SELECT * FROM tickets WHERE ticket_id = ?");
+                pstmtCheckTicket.setInt(1, ticketId);
+                ResultSet rsTicket = pstmtCheckTicket.executeQuery();
+                int ticketReservationId = 0;
+                if (rsTicket.next()) {
+                    ticketReservationId = rsTicket.getInt("reservation_number");
+                }
+                pstmtCheckTicket.close();
 
-                if (rowsAffected > 0) {
-                    ticketModel.removeRow(selectedRow);
-                    JOptionPane.showMessageDialog(null, "Ticket deleted successfully.");
+                // If the ticket reservation number matches the selected reservation, delete the ticket
+                if (ticketReservationId == reservationId) {
+                    // Update the seat availability to true
+                    PreparedStatement pstmtUpdateSeat = conn.prepareStatement("UPDATE seats SET is_available = true WHERE seat_id = ?");
+                    pstmtUpdateSeat.setInt(1, seatId);
+                    pstmtUpdateSeat.executeUpdate();
+                    pstmtUpdateSeat.close();
+
+                    // Delete the ticket
+                    PreparedStatement pstmtDeleteTicket = conn.prepareStatement("DELETE FROM tickets WHERE ticket_id = ?");
+                    pstmtDeleteTicket.setInt(1, ticketId);
+                    int rowsAffectedTicket = pstmtDeleteTicket.executeUpdate();
+                    pstmtDeleteTicket.close();
+
+                    if (rowsAffectedTicket > 0 && flag == 0) {
+                        ticketModel.removeRow(selectedRow);
+                        JOptionPane.showMessageDialog(null, "Ticket deleted successfully.");
+                    } else if (flag == 0) {
+                        JOptionPane.showMessageDialog(null, "Failed to delete ticket.");
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Failed to delete ticket.");
+                    JOptionPane.showMessageDialog(null, "Selected ticket does not match the reservation.");
                 }
 
-                pstmt.close();
+                // Delete reservation if all tickets referencing it are deleted
+                PreparedStatement pstmtCountTickets = conn.prepareStatement("SELECT COUNT(*) AS num_tickets FROM tickets WHERE reservation_number = ?");
+                pstmtCountTickets.setInt(1, reservationId);
+                ResultSet rsCountTickets = pstmtCountTickets.executeQuery();
+                rsCountTickets.next();
+                int numTickets = rsCountTickets.getInt("num_tickets");
+                pstmtCountTickets.close();
+
+                if (numTickets == 0) {
+                    PreparedStatement pstmtDeleteReservation = conn.prepareStatement("DELETE FROM reservations WHERE reservation_number = ?");
+                    pstmtDeleteReservation.setInt(1, reservationId);
+                    int rowsAffectedReservation = pstmtDeleteReservation.executeUpdate();
+                    pstmtDeleteReservation.close();
+
+                    if (rowsAffectedReservation > 0 && flag == 0) {
+                        JOptionPane.showMessageDialog(null, "Reservation deleted successfully.");
+                    } else if (flag == 0) {
+                        JOptionPane.showMessageDialog(null, "Failed to delete reservation.");
+                    }
+                }
+
+                conn.commit(); // Commit transaction
+                conn.setAutoCommit(true); // Restore auto-commit mode
                 conn.close();
+
+                if (flag == 0) {
+                    populateTicketTable();
+                    populateReservationTable();
+                } else if (flag == 1) {
+                    JOptionPane.showMessageDialog(null, "Please select another movie, schedule and seat.");
+                    populateMovieTable();
+                } else if (flag == 2) {
+                    JOptionPane.showMessageDialog(null, "Please select a new schedule for the selected movie.");
+                    populateScheduleTable(movieId);
+                }
+                populateSeatTable(selectedTheaterId);
+
             } catch (SQLException e) {
                 e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "An error occurred while deleting ticket: " + e.getMessage());
             }
         } else {
             JOptionPane.showMessageDialog(null, "Please select a ticket to delete.");
@@ -726,10 +822,6 @@ public class MovieReservationGUI extends JFrame {
 
         public boolean isAvailable() {
             return isAvailable;
-        }
-
-        public void setAvailable(boolean available) {
-            isAvailable = available;
         }
     }
 }

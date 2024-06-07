@@ -225,7 +225,7 @@ public class ManagerFrame extends JFrame {
             JPanel panel = new JPanel(new GridLayout(0, 2));
             JTextField queryField = new JTextField(10);
 
-            panel.add(new JLabel("Input values for " + tableName + " (e.g., (2, 'value1', 'value2', 'value3') ) :"));
+            panel.add(new JLabel("Input values for " + tableName + " <ex> (2, 'value1', 'value2', 'value3') : "));
             panel.add(queryField);
 
             int result = JOptionPane.showConfirmDialog(null, panel, "Insert Values", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
@@ -250,7 +250,7 @@ public class ManagerFrame extends JFrame {
     }
 
     private void delete(String tableName) {
-        String afterwhere = JOptionPane.showInputDialog("Enter the after WHERE:");
+        String afterwhere = JOptionPane.showInputDialog("Enter the after WHERE : ");
 
         if (afterwhere!= null && !afterwhere.isEmpty()) {
             try {
@@ -273,7 +273,7 @@ public class ManagerFrame extends JFrame {
 
 
     private void update(String tableName) {
-    	String afterwhere = JOptionPane.showInputDialog("Enter set to where:");
+    	String afterwhere = JOptionPane.showInputDialog("Enter set to where : ");
 
         if (afterwhere!= null && !afterwhere.isEmpty()) {
             try {

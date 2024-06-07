@@ -10,12 +10,12 @@ public class Init {
     public static void run() {
         try {
             con = DB_Connect.getConnection();
-            System.out.println("데이터베이스 연결 성공");
+            System.out.println("database connect sucessful.");
 
             // 테이블 생성 및 데이터 주입
             createTablesAndInsertData();
 
-            System.out.println("테이블 생성 및 예제 데이터 주입 완료");
+            System.out.println("create table and insert data complete.");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -135,18 +135,18 @@ public class Init {
         Statement stmt1 = con.createStatement();
         // Insert data into movies table
         String insertMoviesData = "INSERT INTO movies (movie_id, title, running_time, rating, director, actors, genre, introduce, open_date, rating_score) VALUES "
-                + "(1, 'Interstellar', '02:49:00', 'PG-13', 'Christopher Nolan', 'Matthew McConaughey, Anne Hathaway', 'Sci-Fi', 'A journey to save humanity', '2014-11-07', 8.6),"
-                + "(2, 'Inception', '02:28:00', 'PG-13', 'Christopher Nolan', 'Leonardo DiCaprio, Joseph Gordon-Levitt', 'Sci-Fi', 'A mind-bending thriller', '2010-07-16', 8.8),"
-                + "(3, 'Titanic', '03:14:00', 'PG-13', 'James Cameron', 'Leonardo DiCaprio, Kate Winslet', 'Romance', 'A romance blooms on the ill-fated Titanic', '1997-12-19', 7.8),"
-                + "(4, 'Coco', '01:45:00', 'PG', 'Lee Unkrich, Adrian Molina', 'Anthony Gonzalez, Gael García Bernal', 'Animation', 'A boy journeys into the Land of the Dead', '2017-11-22', 8.4),"
-                + "(5, 'Gravity', '01:31:00', 'PG-13', 'Alfonso Cuarón', 'Sandra Bullock, George Clooney', 'Sci-Fi', 'Two astronauts struggle to survive in space', '2013-10-04', 7.7),"
-                + "(6, 'Toy Story', '01:21:00', 'G', 'John Lasseter', 'Tom Hanks, Tim Allen', 'Animation', 'A toy cowboy and a toy astronaut become friends', '1995-11-22', 8.3),"
-                + "(7, 'Avengers: Endgame', '03:01:00', 'PG-13', 'Anthony Russo, Joe Russo', 'Robert Downey Jr., Chris Evans', 'Action', 'The epic conclusion of the Avengers saga', '2019-04-26', 8.4),"
-                + "(8, 'American Sniper', '02:13:00', 'R', 'Clint Eastwood', 'Bradley Cooper, Sienna Miller', 'War', 'The story of the deadliest sniper in U.S. history', '2014-12-25', 7.3),"
-                + "(9, 'Deadpool', '01:48:00', 'R', 'Tim Miller', 'Ryan Reynolds, Morena Baccarin', 'Action', 'A former special forces operative turned mercenary', '2016-02-12', 8.0),"
-                + "(10, 'Annabelle', '01:39:00', 'R', 'John R. Leonetti', 'Annabelle Wallis, Ward Horton', 'Horror', 'A couple begins to experience terrifying events', '2014-10-03', 5.4),"
-                + "(11, 'Frozen', '01:42:00', 'PG', 'Chris Buck, Jennifer Lee', 'Kristen Bell, Idina Menzel', 'Animation', 'A young woman must save her kingdom from eternal winter', '2013-11-27', 7.4),"
-                + "(12, 'Transformers', '02:24:00', 'PG-13', 'Michael Bay', 'Shia LaBeouf, Megan Fox', 'Action', 'Humans caught in a war between two factions of robots', '2007-07-03', 7.0)";
+                + "(1, 'Interstellar', '02:49:00', 'PG-13', 'Christopher Nolan', 'Matthew McConaughey, Anne Hathaway', 'Sci-Fi', 'A journey to save humanity', '2023-01-01', 8.6),"
+                + "(2, 'Inception', '02:28:00', 'PG-13', 'Christopher Nolan', 'Leonardo DiCaprio, Joseph Gordon-Levitt', 'Sci-Fi', 'A mind-bending thriller', '2023-02-01', 8.8),"
+                + "(3, 'Titanic', '03:14:00', 'PG-13', 'James Cameron', 'Leonardo DiCaprio, Kate Winslet', 'Romance', 'A romance blooms on the ill-fated Titanic', '2023-03-01', 7.8),"
+                + "(4, 'Coco', '01:45:00', 'PG', 'Lee Unkrich, Adrian Molina', 'Anthony Gonzalez, Gael García Bernal', 'Animation', 'A boy journeys into the Land of the Dead', '2023-04-01', 8.4),"
+                + "(5, 'Gravity', '01:31:00', 'PG-13', 'Alfonso Cuarón', 'Sandra Bullock, George Clooney', 'Sci-Fi', 'Two astronauts struggle to survive in space', '2023-05-01', 7.7),"
+                + "(6, 'Toy Story', '01:21:00', 'G', 'John Lasseter', 'Tom Hanks, Tim Allen', 'Animation', 'A toy cowboy and a toy astronaut become friends', '2023-06-01', 8.3),"
+                + "(7, 'Avengers: Endgame', '03:01:00', 'PG-13', 'Anthony Russo, Joe Russo', 'Robert Downey Jr., Chris Evans', 'Action', 'The epic conclusion of the Avengers saga', '2023-07-01', 8.4),"
+                + "(8, 'American Sniper', '02:13:00', 'R', 'Clint Eastwood', 'Bradley Cooper, Sienna Miller', 'War', 'The story of the deadliest sniper in U.S. history', '2023-08-01', 7.3),"
+                + "(9, 'Deadpool', '01:48:00', 'R', 'Tim Miller', 'Ryan Reynolds, Morena Baccarin', 'Action', 'A former special forces operative turned mercenary', '2023-09-01', 8.0),"
+                + "(10, 'Annabelle', '01:39:00', 'R', 'John R. Leonetti', 'Annabelle Wallis, Ward Horton', 'Horror', 'A couple begins to experience terrifying events', '2023-10-01', 5.4),"
+                + "(11, 'Frozen', '01:42:00', 'PG', 'Chris Buck, Jennifer Lee', 'Kristen Bell, Idina Menzel', 'Animation', 'A young woman must save her kingdom from eternal winter', '2023-11-01', 7.4),"
+                + "(12, 'Transformers', '02:24:00', 'PG-13', 'Michael Bay', 'Shia LaBeouf, Megan Fox', 'Action', 'Humans caught in a war between two factions of robots', '2023-12-01', 7.0)";
         stmt1.executeUpdate(insertMoviesData);
 
         // Insert data into theaters table
@@ -160,13 +160,24 @@ public class Init {
                 + "(7, 16, 1, 4, 4),"
                 + "(8, 2, 1, 2, 1),"
                 + "(9, 8, 1, 4, 2),"
-                + "(10, 40, 1, 4, 10),"
+                + "(10, 140, 1, 14, 10),"
                 + "(11, 24, 1, 6, 4),"
                 + "(12, 18, 1, 6, 3)";
         stmt1.executeUpdate(insertTheatersData);
 
         String insertCustomersData = "INSERT INTO customers (customer_id, customer_name, customer_mobilenumber, customer_emailaddress) VALUES "
-                + "(1, 'Kim', '01012345678', 'Kim@example.com')";
+                + "(1, 'Kim', '01012345678', 'Kim@example.com'),"
+        		+"(2, 'A', '01022222222', 'A@example.com'),"
+        		+"(3, 'B', '01033333333', 'B@example.com'),"
+        		+"(4, 'C', '01044444444', 'C@example.com'),"
+        		+"(5, 'D', '01055555555', 'D@example.com'),"
+        		+"(6, 'E', '01066666666', 'E@example.com'),"
+        		+"(7, 'F', '01077777777', 'F@example.com'),"
+        		+"(8, 'G', '01088888888', 'G@example.com'),"
+        		+"(9, 'H', '01099999999', 'H@example.com'),"
+        		+"(10, 'I', '01000000000', 'I@example.com'),"
+        		+"(11, 'J', '01011111111', 'J@example.com'),"
+        		+"(12, 'K', '01071829182', 'K@example.com')";
         stmt1.executeUpdate(insertCustomersData);
 
 
@@ -214,8 +225,8 @@ public class Init {
 
         String inserSeatsData = "INSERT INTO seats (seat_id, seat_row, seat_col, theater_id, is_available) VALUES "
                 //1관
-                +"(1, 1, 1, 1, 1),"
-                +"(2, 1, 2, 1, 1),"
+                +"(1, 1, 1, 1, 0),"
+                +"(2, 1, 2, 1, 0),"
                 +"(3, 1, 3, 1, 1),"
                 +"(4, 1, 4, 1, 1),"
                 +"(5, 1, 5, 1, 1),"
@@ -246,8 +257,8 @@ public class Init {
                 +"(30, 6, 5, 1, 1),"
 
                 //2관
-                +"(31, 1, 1, 2, 1),"
-                +"(32, 1, 2, 2, 1),"
+                +"(31, 1, 1, 2, 0),"
+                +"(32, 1, 2, 2, 0),"
                 +"(33, 1, 3, 2, 1),"
                 +"(34, 2, 1, 2, 1),"
                 +"(35, 2, 2, 2, 1),"
@@ -260,8 +271,8 @@ public class Init {
                 +"(42, 4, 3, 2, 1),"
 
                 //3관
-                +"(43, 1, 1, 3, 1),"
-                +"(44, 1, 2, 3, 1),"
+                +"(43, 1, 1, 3, 0),"
+                +"(44, 1, 2, 3, 0),"
                 +"(45, 1, 3, 3, 1),"
                 +"(46, 1, 4, 3, 1),"
                 +"(47, 2, 1, 3, 1),"
@@ -282,8 +293,8 @@ public class Init {
                 +"(62, 5, 4, 3, 1),"
 
                 //4
-                +"(63, 1, 1, 4, 1),"
-                +"(64, 1, 2, 4, 1),"
+                +"(63, 1, 1, 4, 0),"
+                +"(64, 1, 2, 4, 0),"
                 +"(65, 1, 3, 4, 1),"
                 +"(66, 1, 4, 4, 1),"
                 +"(67, 1, 5, 4, 1),"
@@ -309,8 +320,8 @@ public class Init {
                 +"(87, 5, 5, 4, 1),"
 
                 //5
-                +"(88, 1, 1, 5, 1),"
-                +"(89, 1, 2, 5, 1),"
+                +"(88, 1, 1, 5, 0),"
+                +"(89, 1, 2, 5, 0),"
                 +"(90, 1, 3, 5, 1),"
                 +"(91, 1, 4, 5, 1),"
                 +"(92, 1, 5, 5, 1),"
@@ -326,8 +337,8 @@ public class Init {
                 +"(102, 3, 5, 5, 1),"
 
                 //6
-                +"(103, 1, 1, 6, 1),"
-                +"(104, 1, 2, 6, 1),"
+                +"(103, 1, 1, 6, 0),"
+                +"(104, 1, 2, 6, 0),"
                 +"(105, 1, 3, 6, 1),"
                 +"(106, 2, 1, 6, 1),"
                 +"(107, 2, 2, 6, 1),"
@@ -558,19 +569,19 @@ public class Init {
         String insertTicketsData = "INSERT INTO tickets (ticket_id, schedule_id, theater_id, seat_id, reservation_number, is_purchase, standard_price, selling_price) VALUES "
                 + "(1, 1, 1, 1, 1, 1, 10000, 9000),"
                 + "(2, 1, 1, 2, 2, 1, 10000, 9500),"
-                + "(3, 2, 1, 3, 3, 1, 10000, 10000),"
-                + "(4, 2, 1, 4, 4, 1, 10000, 10500),"
-                + "(5, 3, 2, 5, 5, 1, 12000, 11500),"
-                + "(6, 3, 2, 6, 6, 1, 12000, 12000),"
-                + "(7, 4, 2, 7, 7, 1, 12000, 12500),"
-                + "(8, 4, 2, 8, 8, 1, 12000, 11000),"
-                + "(9, 5, 3, 9, 9, 1, 11000, 10500),"
-                + "(10, 5, 3, 10, 10, 1, 11000, 11500),"
-                + "(11, 6, 3, 11, 11, 1, 11000, 11000),"
-                + "(12, 6, 3, 12, 12, 1, 11000, 12000)";
+                + "(3, 2, 2, 31, 3, 1, 10000, 10000),"
+                + "(4, 2, 2, 32, 4, 1, 10000, 10500),"
+                + "(5, 3, 3, 43, 5, 1, 12000, 11500),"
+                + "(6, 3, 3, 44, 6, 1, 12000, 12000),"
+                + "(7, 4, 4, 63, 7, 1, 12000, 12500),"
+                + "(8, 4, 4, 64, 8, 1, 12000, 11000),"
+                + "(9, 5, 5, 88, 9, 1, 11000, 10500),"
+                + "(10, 5, 5, 89, 10, 1, 11000, 11500),"
+                + "(11, 6, 6, 103, 11, 1, 11000, 11000),"
+                + "(12, 6, 6, 104, 12, 1, 11000, 12000)";
         stmt1.executeUpdate(insertTicketsData);
     }
-
+    
     public static void main(String[] args) {
         run();
     }
